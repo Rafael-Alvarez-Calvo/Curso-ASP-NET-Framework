@@ -1,0 +1,51 @@
+﻿@using WebApplication.Models;
+@model List<ClientesCLS>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <td>@Html.LabelFor(p => Model[0].iidcliente)</td>
+            <td>@Html.LabelFor(p => Model[0].nombre)</td>
+            <td>@Html.LabelFor(p => Model[0].appaterno)</td>
+            <td>@Html.LabelFor(p => Model[0].direccion)</td>
+            <td>@Html.LabelFor(p => Model[0].email)</td>
+            <td>@Html.LabelFor(p => Model[0].iidsexo)</td>
+            <td>@Html.LabelFor(p => Model[0].telefonofijo)</td>
+            <td>@Html.LabelFor(p => Model[0].telefonocelular)</td>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.iidcliente</td>
+                <td>@item.nombre</td>
+                <td>@item.appaterno @item.apmaterno</td>
+                <td>@item.direccion</td>
+                <td>@item.email</td>
+
+                @if (item.iidsexo == 1)
+                {
+                    <td>Hombre</td>
+
+                }
+                else
+                {
+                    <td>Mujer</td>
+                }
+
+                <td>@item.telefonofijo</td>
+                <td>@item.telefonocelular</td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+

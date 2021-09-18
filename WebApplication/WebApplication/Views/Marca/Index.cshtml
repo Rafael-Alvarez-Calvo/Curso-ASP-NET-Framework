@@ -1,0 +1,38 @@
+﻿@using WebApplication.Models;
+@model List<MarcaCLS>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Listado de Marcas</h2>
+
+<div class="mt-3">
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr>
+                <td width="10%">@Html.LabelFor(p => Model[0].iidmarca)</td> <!--Esto está haciendo referencia al display del modelo, donde se establecio el Name por defecto de esa columna-->
+                <td width="20%">@Html.LabelFor(p => Model[0].nombre)</td>
+                <td width="70%">@Html.LabelFor(p => Model[0].descripcion)</td>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@item.iidmarca</td>
+                    <td>@item.nombre</td>
+                    <td>@item.descripcion</td>
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<div class="col-12 d-flex justify-content-end">
+    @Html.ActionLink("Agregar", "Agregar", "Marca", null, new { @class = "btn btn-primary mb-3" })
+</div>

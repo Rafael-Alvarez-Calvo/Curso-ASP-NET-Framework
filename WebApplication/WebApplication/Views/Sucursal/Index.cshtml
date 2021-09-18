@@ -1,0 +1,35 @@
+﻿@using WebApplication.Models;
+@model List<SucursalCLS>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Sucursal</h2>
+
+<table class="table table-hover">
+    <thead class="table-dark">
+        <tr>
+            <td>@Html.LabelFor(p => Model[0].iidsucursal)</td>
+            <td>@Html.LabelFor(p => Model[0].nombre)</td>
+            <td>@Html.LabelFor(p => Model[0].direccion)</td>
+            <td>@Html.LabelFor(p => Model[0].telefono)</td>
+            <td>@Html.LabelFor(p => Model[0].email)</td>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.iidsucursal</td>
+                <td>@item.nombre</td>
+                <td>@item.direccion</td>
+                <td>@item.telefono</td>
+                <td>@item.email</td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
