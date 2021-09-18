@@ -9,7 +9,7 @@ namespace WebApplication.Models
     public class ClientesCLS
     {
 
-        [Display(Name = "ID de Cliente")]
+        [Display(Name = "ID")]
         public int iidcliente { get; set; }
 
         [Required]
@@ -23,18 +23,19 @@ namespace WebApplication.Models
         public string appaterno { get; set; }
         
         [Required]
-        [StringLength(150, ErrorMessage = "La longitud máxima es 150")]
         [Display(Name = "Apellido 2")]
+        [StringLength(150, ErrorMessage = "La longitud máxima es 150")]
         public string apmaterno { get; set; }
         
         [Required]
-        [StringLength(200, ErrorMessage = "La longitud máxima es 200")]
         [Display(Name = "Email")]
+        [EmailAddress(ErrorMessage = "Ingrese un email válido")]
+        [StringLength(200, ErrorMessage = "La longitud máxima es 200")]
         public string email { get; set; }
 
         [Required]
-        [StringLength(200, ErrorMessage = "La longitud máxima es 200")]
         [Display(Name = "Dirección")]
+        [StringLength(200, ErrorMessage = "La longitud máxima es 200")]
         public string direccion { get; set; }
 
         [Required]

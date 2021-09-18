@@ -1,0 +1,38 @@
+﻿@using WebApplication.Models;
+@model List<EmpleadoCLS>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Empleados</h2>
+
+<div>
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr>
+                <td>@Html.LabelFor(p => Model[0].iidempleado)</td>
+                <td>@Html.LabelFor(p => Model[0].nombre)</td>
+                <td>@Html.LabelFor(p => Model[0].sueldo)<span> (€)</span></td>
+                <td>@Html.LabelFor(p => Model[0].fechacontrato)</td>
+                <td>@Html.LabelFor(p => Model[0].nombreTipoContrato)</td>
+                <td>@Html.LabelFor(p => Model[0].nombreTipoUsuario)</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.iidempleado</td>
+                    <td>@item.nombre.ToLower() @item.appaterno.ToLower() @item.apmaterno.ToLower()</td>
+                    <td>@item.sueldo €</td>
+                    <td>@item.fechacontrato</td>
+                    <td>@item.nombreTipoContrato</td>
+                    <td>@item.nombreTipoUsuario</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

@@ -134,7 +134,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BusController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\MarcaController.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
     <Compile Include="Global.asax.cs">
@@ -146,6 +148,7 @@
     <Compile Include="Models\Bus.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\BusCLS.cs" />
     <Compile Include="Models\Cliente.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -156,6 +159,7 @@
     <Compile Include="Models\Empleado.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmpleadoCLS.cs" />
     <Compile Include="Models\Lugar.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -263,6 +267,8 @@
     <Content Include="Views\Marca\Agregar.cshtml" />
     <Content Include="Views\Sucursal\Agregar.cshtml" />
     <Content Include="Views\Clientes\Agregar.cshtml" />
+    <Content Include="Views\Empleado\Index.cshtml" />
+    <Content Include="Views\Bus\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

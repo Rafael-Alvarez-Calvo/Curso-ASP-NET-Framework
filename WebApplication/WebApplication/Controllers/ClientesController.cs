@@ -9,7 +9,7 @@ namespace WebApplication.Controllers
 {
     public class ClientesController : Controller
     {
-        // GET: Clientes
+        [HttpGet]
         public ActionResult Index()
         {
             List<ClientesCLS> listaClientes = null;
@@ -35,8 +35,29 @@ namespace WebApplication.Controllers
                 return View(listaClientes);
         }
 
+        List<SelectListItem> listaSexo;
+        private void setSexSelector()
+        {
+            using( var bd = new BDPasajeEntities())
+            {
+                listaSexo = (from sexo in bd.Sexo
+                                where sexo.BHABILITADO == 1
+                                select new SelectListItem
+                                {
+                                    Text = sexo.NOMBRE,
+                                    Value = sexo.IIDSEXO.ToString()
+
+                                }).ToList();
+
+                listaSexo.Insert(0, new SelectListItem { Text = "-- Seleccione --", Value = "" });
+            }
+        }
+
         public ActionResult Agregar()
         {
+            setSexSelector();
+            ViewBag.lista = listaSexo;
+
             return View();
         }
 
@@ -46,6 +67,9 @@ namespace WebApplication.Controllers
 
             if(!ModelState.IsValid)
             {
+                setSexSelector();
+                ViewBag.lista = listaSexo; //Necesitamos volver a llenar el selector cuando se valide algun campo y salga erroneo
+
                 return View(oClientesCLS);
             }
             else

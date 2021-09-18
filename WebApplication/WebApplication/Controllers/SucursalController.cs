@@ -10,6 +10,7 @@ namespace WebApplication.Controllers
     public class SucursalController : Controller
     {
         // GET: Sucursal
+        [HttpGet]
         public ActionResult Index()
         {
 
@@ -26,6 +27,7 @@ namespace WebApplication.Controllers
                                         direccion = sucursal.DIRECCION,
                                         telefono = sucursal.TELEFONO,
                                         email = sucursal.EMAIL,
+                                        fechaApertura = (DateTime)sucursal.FECHAAPERTURA
 
                                     }).ToList();
             }

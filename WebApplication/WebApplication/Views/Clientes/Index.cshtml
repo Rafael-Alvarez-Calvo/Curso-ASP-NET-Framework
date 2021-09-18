@@ -7,18 +7,17 @@
 
 <h2>Clientes</h2>
 
-<div class="mt-3">
-    <table class="table table-bordered table-hover">
+<div class="col-12 mt-3">
+    <table class="table table-hover clientsTable">
         <thead class="table-dark">
             <tr>
-                <td>@Html.LabelFor(p => Model[0].iidcliente)</td>
-                <td>@Html.LabelFor(p => Model[0].nombre)</td>
-                <td>@Html.LabelFor(p => Model[0].appaterno)</td>
-                <td>@Html.LabelFor(p => Model[0].direccion)</td>
-                <td>@Html.LabelFor(p => Model[0].email)</td>
-                <td>@Html.LabelFor(p => Model[0].iidsexo)</td>
-                <td>@Html.LabelFor(p => Model[0].telefonofijo)</td>
-                <td>@Html.LabelFor(p => Model[0].telefonocelular)</td>
+                <td width="5%">@Html.LabelFor(p => Model[0].iidcliente)</td>
+                <td width="25%">@Html.LabelFor(p => Model[0].nombre)</td>
+                <td width="25%">@Html.LabelFor(p => Model[0].direccion)</td>
+                <td width="15%">@Html.LabelFor(p => Model[0].email)</td>
+                <td width="10%">@Html.LabelFor(p => Model[0].iidsexo)</td>
+                <td width="10%">@Html.LabelFor(p => Model[0].telefonofijo)</td>
+                <td width="10%">@Html.LabelFor(p => Model[0].telefonocelular)</td>
             </tr>
 
         </thead>
@@ -27,10 +26,9 @@
             {
                 <tr>
                     <td>@item.iidcliente</td>
-                    <td>@item.nombre</td>
-                    <td>@item.appaterno @item.apmaterno</td>
-                    <td>@item.direccion</td>
-                    <td>@item.email</td>
+                    <td>@item.nombre.ToLower() @item.appaterno.ToLower() @item.apmaterno.ToLower()</td>
+                    <td>@item.direccion.ToLower()</td>
+                    <td>@item.email.ToLower()</td>
 
                     @if (item.iidsexo == 1)
                     {
