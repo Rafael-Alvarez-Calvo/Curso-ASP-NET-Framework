@@ -41,10 +41,27 @@ namespace WebApplication.Controllers
             return View();
         }
         
-        /*[HttpPost]
-        public ActionResult Agregar()
+        [HttpPost]
+        public ActionResult Agregar(MarcaCLS oMarcaCLS)
         {
-            return View();
-        }*/
+            if(!ModelState.IsValid)
+            {
+                return View(oMarcaCLS);
+            }
+            else
+            {
+                using(var bd= new BDPasajeEntities())
+                {
+                    Marca oMarca = new Marca(); // Este marca() es entity framework
+                    oMarca.NOMBRE = oMarcaCLS.nombre;
+                    oMarca.DESCRIPCION = oMarcaCLS.descripcion;
+                    oMarca.BHABILITADO = 1;
+                    bd.Marca.Add(oMarca);
+                    bd.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

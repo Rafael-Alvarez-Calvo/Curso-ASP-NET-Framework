@@ -34,5 +34,42 @@ namespace WebApplication.Controllers
             }
                 return View(listaClientes);
         }
+
+        public ActionResult Agregar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Agregar(ClientesCLS oClientesCLS)
+        {
+
+            if(!ModelState.IsValid)
+            {
+                return View(oClientesCLS);
+            }
+            else
+            {
+                using(var bd = new BDPasajeEntities())
+                {
+                    Cliente oCliente = new Cliente();
+
+                    oCliente.NOMBRE = oClientesCLS.nombre;
+                    oCliente.APPATERNO = oClientesCLS.appaterno;
+                    oCliente.APMATERNO = oClientesCLS.apmaterno;
+                    oCliente.EMAIL = oClientesCLS.email;
+                    oCliente.DIRECCION = oClientesCLS.direccion;
+                    oCliente.IIDSEXO = oClientesCLS.iidsexo;
+                    oCliente.TELEFONOFIJO = oClientesCLS.telefonofijo;
+                    oCliente.TELEFONOCELULAR = oClientesCLS.telefonocelular;
+                    oCliente.BHABILITADO = 1;
+
+                    bd.Cliente.Add(oCliente);
+                    bd.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

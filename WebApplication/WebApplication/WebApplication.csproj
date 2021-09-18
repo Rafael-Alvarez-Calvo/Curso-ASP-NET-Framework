@@ -261,6 +261,8 @@
     <Content Include="Views\Sucursal\Index.cshtml" />
     <Content Include="Views\Clientes\Index.cshtml" />
     <Content Include="Views\Marca\Agregar.cshtml" />
+    <Content Include="Views\Sucursal\Agregar.cshtml" />
+    <Content Include="Views\Clientes\Agregar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
