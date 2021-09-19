@@ -50,14 +50,13 @@ namespace WebApplication.Controllers
                                 }).ToList();
 
                 listaSexo.Insert(0, new SelectListItem { Text = "-- Seleccione --", Value = "" });
+                ViewBag.lista = listaSexo;
             }
         }
 
         public ActionResult Agregar()
         {
             setSexSelector();
-            ViewBag.lista = listaSexo;
-
             return View();
         }
 
@@ -67,8 +66,7 @@ namespace WebApplication.Controllers
 
             if(!ModelState.IsValid)
             {
-                setSexSelector();
-                ViewBag.lista = listaSexo; //Necesitamos volver a llenar el selector cuando se valide algun campo y salga erroneo
+                setSexSelector();  //Necesitamos volver a llenar el selector cuando se valide algun campo y salga erroneo
 
                 return View(oClientesCLS);
             }

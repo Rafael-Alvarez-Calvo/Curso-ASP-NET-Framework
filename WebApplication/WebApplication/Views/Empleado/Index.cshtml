@@ -13,7 +13,7 @@
             <tr>
                 <td>@Html.LabelFor(p => Model[0].iidempleado)</td>
                 <td>@Html.LabelFor(p => Model[0].nombre)</td>
-                <td>@Html.LabelFor(p => Model[0].sueldo)<span> (€)</span></td>
+                @*<td>@Html.LabelFor(p => Model[0].sueldo)<span> (€)</span></td>*@
                 <td>@Html.LabelFor(p => Model[0].fechacontrato)</td>
                 <td>@Html.LabelFor(p => Model[0].nombreTipoContrato)</td>
                 <td>@Html.LabelFor(p => Model[0].nombreTipoUsuario)</td>
@@ -26,7 +26,7 @@
                 <tr>
                     <td>@item.iidempleado</td>
                     <td>@item.nombre.ToLower() @item.appaterno.ToLower() @item.apmaterno.ToLower()</td>
-                    <td>@item.sueldo €</td>
+                    @*<td>@item.sueldo.ToString() €</td>*@
                     <td>@item.fechacontrato</td>
                     <td>@item.nombreTipoContrato</td>
                     <td>@item.nombreTipoUsuario</td>
@@ -34,5 +34,9 @@
             }
         </tbody>
     </table>
+</div>
+
+<div class="col-12 d-flex justify-content-end">
+    @Html.ActionLink("Agregar", "Agregar", "Empleado", null, new { @class = "btn btn-primary mb-3" })
 </div>
 

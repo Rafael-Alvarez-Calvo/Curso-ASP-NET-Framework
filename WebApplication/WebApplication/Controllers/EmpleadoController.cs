@@ -27,9 +27,8 @@ namespace WebApplication.Controllers
                                         nombre = empleados.NOMBRE,
                                         appaterno = empleados.APPATERNO,
                                         apmaterno = empleados.APMATERNO,
-                                        sueldo = (float)empleados.SUELDO,
                                         fechacontrato = (DateTime)empleados.FECHACONTRATO,
-                                        iidtipoSexo = (int)empleados.IIDSEXO,
+                                        iidSexo = (int)empleados.IIDSEXO,
                                         nombreTipoUsuario = tipousuario.NOMBRE,
                                         nombreTipoContrato = tipocontrato.NOMBRE
 
@@ -37,6 +36,114 @@ namespace WebApplication.Controllers
             }
 
             return View(listaEmpleados);
+        }
+
+        public void setSexSelector()
+        {
+            List<SelectListItem> lista;
+
+            using( var bd = new BDPasajeEntities())
+            {
+                lista = (from sexo in bd.Sexo
+                             where sexo.BHABILITADO == 1
+                             select new SelectListItem
+                             {
+                                 Text = sexo.NOMBRE,
+                                 Value = sexo.IIDSEXO.ToString()
+
+                             }).ToList();
+
+                lista.Insert(0, new SelectListItem { Text = "-- Seleccione --", Value = "" });
+                ViewBag.listaSexo = lista;
+            }
+        }
+
+
+        public void setContractTypeSelector()
+        {
+            List<SelectListItem> lista;
+
+            using (var bd = new BDPasajeEntities())
+            {
+                lista = (from TipoContrato in bd.TipoContrato
+                         where TipoContrato.BHABILITADO == 1
+                         select new SelectListItem
+                         {
+                             Text = TipoContrato.NOMBRE,
+                             Value = TipoContrato.IIDTIPOCONTRATO.ToString()
+
+                         }).ToList();
+
+                lista.Insert(0, new SelectListItem { Text = "-- Seleccione --", Value = "" });
+                ViewBag.listaTipoContrato = lista;
+            }
+        }
+
+        public void setUserTypeSelector()
+        {
+            List<SelectListItem> lista;
+
+            using (var bd = new BDPasajeEntities())
+            {
+                lista = (from TipoUsuario in bd.TipoUsuario
+                         where TipoUsuario.BHABILITADO == 1
+                         select new SelectListItem
+                         {
+                             Text = TipoUsuario.NOMBRE,
+                             Value = TipoUsuario.IIDTIPOUSUARIO.ToString()
+
+                         }).ToList();
+
+                lista.Insert(0, new SelectListItem { Text = "-- Seleccione --", Value = "" });
+                ViewBag.listaTipoUsuario = lista;
+            }
+        }
+
+        public void setSelectors()
+        {
+            setSexSelector();
+            setContractTypeSelector();
+            setUserTypeSelector();
+        }
+
+
+        public ActionResult Agregar()
+        {
+            setSelectors();
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Agregar(EmpleadoCLS oEmpleadoCLS)
+        {
+            if(!ModelState.IsValid)
+            {
+                setSelectors();
+                return View(oEmpleadoCLS);
+            }
+            else
+            {
+                using( var bd = new BDPasajeEntities())
+                {
+                    Empleado oEmpleado = new Empleado();
+
+                    oEmpleado.NOMBRE = oEmpleadoCLS.nombre;
+                    oEmpleado.IIDSEXO = oEmpleadoCLS.iidSexo;
+                    oEmpleado.APPATERNO = oEmpleadoCLS.appaterno;
+                    oEmpleado.APMATERNO = oEmpleadoCLS.apmaterno;
+                    oEmpleado.FECHACONTRATO = oEmpleadoCLS.fechacontrato;
+                    //oEmpleado.SUELDO = oEmpleadoCLS.sueldo;
+                    oEmpleado.IIDTIPOCONTRATO = oEmpleadoCLS.iidtipoContrato;
+                    oEmpleado.IIDTIPOUSUARIO = oEmpleadoCLS.iidtipoUsuario;
+                    oEmpleado.BHABILITADO = 1;
+
+                    bd.Empleado.Add(oEmpleado);
+                    bd.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

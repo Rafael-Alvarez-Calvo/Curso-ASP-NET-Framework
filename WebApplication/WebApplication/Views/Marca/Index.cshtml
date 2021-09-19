@@ -1,4 +1,5 @@
 ﻿@using WebApplication.Models;
+
 @model List<MarcaCLS>
 
 @{
@@ -13,18 +14,25 @@
             <tr>
                 <td width="10%">@Html.LabelFor(p => Model[0].iidmarca)</td> <!--Esto está haciendo referencia al display del modelo, donde se establecio el Name por defecto de esa columna-->
                 <td width="20%">@Html.LabelFor(p => Model[0].nombre)</td>
-                <td width="70%">@Html.LabelFor(p => Model[0].descripcion)</td>
+                <td width="60%">@Html.LabelFor(p => Model[0].descripcion)</td>
+                <td width="10%" class="text-center">Operaciones</td>
             </tr>
         </thead>
 
         <tbody>
 
-            @foreach(var item in Model)
+            @foreach (var item in Model)
             {
                 <tr>
                     <td>@item.iidmarca</td>
                     <td>@item.nombre</td>
                     <td>@item.descripcion</td>
+                    <td>
+                        <div class="d-flex justify-content-around">
+                            @Html.ActionLink(" ", "Editar", "Marca", null, new { @id= item.iidmarca, @class = "fas fa-edit btn btn-warning" })
+                            @Html.ActionLink(" ", "Borrar", "Marca", null, new { @id= item.iidmarca , @class = "fas fa-trash-alt btn btn-danger" })
+                        </div>
+                    </td>
                 </tr>
 
             }

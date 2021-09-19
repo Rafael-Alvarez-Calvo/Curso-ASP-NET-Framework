@@ -1,0 +1,36 @@
+﻿@using WebApplication.Models;
+@model MarcaCLS
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Editar Marca</h2>
+
+<div class="row">
+    <div class="col-6">
+        @using (Html.BeginForm("Editar", "Marca", FormMethod.Get))
+        {
+            <div>
+                @Html.LabelFor(p => p.iidmarca)
+                @Html.TextBoxFor(p => p.iidmarca, new { @class = "form-control" }) @* Esta linea crea un input tipo texto con la clase form-control*@
+                @Html.ValidationMessage("iidmarca", new { @class = "text-danger" })
+            </div>
+            
+            <div>
+                @Html.LabelFor(p => p.nombre)
+                @Html.TextBoxFor(p => p.nombre, new { @class = "form-control" }) @* Esta linea crea un input tipo texto con la clase form-control*@
+                @Html.ValidationMessage("nombre", new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(p => p.descripcion)
+                @Html.TextBoxFor(p => p.descripcion, new { @class = "form-control" })
+                @Html.ValidationMessage("descripcion", new { @class = "text-danger" })
+            </div>
+            <div class="mt-3">
+                <input type="submit" class="btn btn-primary" value="Guardar" />
+            </div>
+        }
+    </div>
+</div>
+

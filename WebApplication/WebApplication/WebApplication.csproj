@@ -50,6 +50,13 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -61,6 +68,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -96,6 +106,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\all.css" />
+    <Content Include="Content\all.min.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -112,7 +124,19 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\brands.css" />
+    <Content Include="Content\brands.min.css" />
+    <Content Include="Content\fontawesome.css" />
+    <Content Include="Content\fontawesome.min.css" />
+    <Content Include="Content\regular.css" />
+    <Content Include="Content\regular.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\solid.css" />
+    <Content Include="Content\solid.min.css" />
+    <Content Include="Content\svg-with-js.css" />
+    <Content Include="Content\svg-with-js.min.css" />
+    <Content Include="Content\v4-shims.css" />
+    <Content Include="Content\v4-shims.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -130,6 +154,25 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\fontawesome\all.js" />
+    <Content Include="Scripts\fontawesome\all.min.js" />
+    <Content Include="Scripts\fontawesome\brands.js" />
+    <Content Include="Scripts\fontawesome\brands.min.js" />
+    <Content Include="Scripts\fontawesome\conflict-detection.js" />
+    <Content Include="Scripts\fontawesome\conflict-detection.min.js" />
+    <Content Include="Scripts\fontawesome\fontawesome.js" />
+    <Content Include="Scripts\fontawesome\fontawesome.min.js" />
+    <Content Include="Scripts\fontawesome\regular.js" />
+    <Content Include="Scripts\fontawesome\regular.min.js" />
+    <Content Include="Scripts\fontawesome\solid.js" />
+    <Content Include="Scripts\fontawesome\solid.min.js" />
+    <Content Include="Scripts\fontawesome\v4-shims.js" />
+    <Content Include="Scripts\fontawesome\v4-shims.min.js" />
+    <None Include="Scripts\jquery-3.6.0.intellisense.js" />
+    <Content Include="Scripts\jquery-3.6.0.js" />
+    <Content Include="Scripts\jquery-3.6.0.min.js" />
+    <Content Include="Scripts\jquery-3.6.0.slim.js" />
+    <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -272,12 +315,31 @@
     <Content Include="Views\Empleado\Index.cshtml" />
     <Content Include="Views\Bus\Index.cshtml" />
     <Content Include="Views\Viaje\Index.cshtml" />
+    <Content Include="Views\Empleado\Agregar.cshtml" />
+    <Content Include="Views\Marca\Editar.cshtml" />
+    <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.6.0.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="webfonts\fa-brands-400.svg" />
+    <Content Include="webfonts\fa-regular-400.svg" />
+    <Content Include="webfonts\fa-solid-900.svg" />
+    <Content Include="webfonts\fa-solid-900.woff2" />
+    <Content Include="webfonts\fa-solid-900.woff" />
+    <Content Include="webfonts\fa-solid-900.ttf" />
+    <Content Include="webfonts\fa-solid-900.eot" />
+    <Content Include="webfonts\fa-regular-400.woff2" />
+    <Content Include="webfonts\fa-regular-400.woff" />
+    <Content Include="webfonts\fa-regular-400.ttf" />
+    <Content Include="webfonts\fa-regular-400.eot" />
+    <Content Include="webfonts\fa-brands-400.woff2" />
+    <Content Include="webfonts\fa-brands-400.woff" />
+    <Content Include="webfonts\fa-brands-400.ttf" />
+    <Content Include="webfonts\fa-brands-400.eot" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

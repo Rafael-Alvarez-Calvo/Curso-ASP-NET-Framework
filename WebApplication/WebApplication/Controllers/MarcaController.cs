@@ -63,5 +63,29 @@ namespace WebApplication.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult Editar(int id)
+        {
+            MarcaCLS oMarcaCLS = new MarcaCLS();
+
+            using( var bd = new BDPasajeEntities())
+            {
+                Marca oMarca = bd.Marca.Where(p => p.IIDMARCA.Equals(id)).First();
+                //Donde el id de marca que recibo sea igual al id de mi tabla en base de datos, lo meto en una clase, esto devuelve una lista por eso se le pone First() para que devuelva un objeto
+
+                oMarcaCLS.iidmarca = oMarca.IIDMARCA;
+                oMarcaCLS.nombre = oMarca.NOMBRE;
+                oMarcaCLS.descripcion = oMarca.DESCRIPCION;
+            }
+
+            return View(oMarcaCLS);
+        }
+        
+        
+        /*public ActionResult Borrar(int id)
+        {
+            return View();
+        }*/
     }
 }

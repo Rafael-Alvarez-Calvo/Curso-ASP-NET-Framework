@@ -1,0 +1,76 @@
+﻿@using WebApplication.Models;
+@model EmpleadoCLS
+
+@{
+    ViewBag.Title = "Agregar";
+    List<SelectListItem> listaSexo = (List<SelectListItem>) ViewBag.listaSexo;
+    List<SelectListItem> listaTipoContrato = (List<SelectListItem>) ViewBag.listaTipoContrato;
+    List<SelectListItem> listaTipoUsuario = (List<SelectListItem>) ViewBag.listaTipoUsuario;
+}
+
+<h2>Agregar Empleado</h2>
+
+@using (Html.BeginForm("Agregar", "Empleado", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-2">
+                @Html.LabelFor(p => p.nombre)
+                @Html.TextBoxFor(p => p.nombre, new { @class = "form-control" })
+                @Html.ValidationMessage("nombre", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-2">
+                @Html.LabelFor(p => p.appaterno)
+                @Html.TextBoxFor(p => p.appaterno, new { @class = "form-control" })
+                @Html.ValidationMessage("appaterno", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-2">
+                @Html.LabelFor(p => p.fechacontrato)
+                @Html.EditorFor(p => p.fechacontrato, new { htmlAttributes = new { @class = "form-control"}})
+                @Html.ValidationMessage("fechacontrato", new { @class = "text-danger" })
+            </div>
+
+            <!--<div class="mb-2">
+                @*@@Html.LabelFor(p => p.sueldo)
+                @Html.TextBoxFor(p => p.sueldo, new { @class = "form-control" })
+                @Html.ValidationMessage("sueldo", new { @class = "text-danger" })*@
+            </div>-->
+
+        </div>
+
+        <div class="col-6">
+
+            <div class="mb-2">
+                @Html.LabelFor(p => p.iidSexo)
+                @Html.DropDownList("iidSexo", listaSexo, null, new { @class = "form-control" })
+                @Html.ValidationMessage("iidSexo", new { @class = "text-danger" })
+            </div>
+
+
+            <div class="mb-2">
+                @Html.LabelFor(p => p.apmaterno)
+                @Html.TextBoxFor(p => p.apmaterno, new { @class = "form-control" })
+                @Html.ValidationMessage("apmaterno", new { @class = "text-danger" })
+            </div>
+
+            <div class="mb-2">
+                @Html.LabelFor(p => p.iidtipoContrato)
+                @Html.DropDownList("iidtipoContrato", listaTipoContrato, null, new { @class = "form-control" })
+                @Html.ValidationMessage("iidtipoContrato", new { @class = "text-danger" })
+            </div>
+
+
+            <div class="mb-2">
+                @Html.LabelFor(p => p.iidtipoUsuario)
+                @Html.DropDownList("iidtipoUsuario", listaTipoUsuario, null, new { @class = "form-control" })
+                @Html.ValidationMessage("iidtipoUsuario", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-12 d-flex justify-content-end mt-3">
+            <input type="submit" class="btn btn-primary" value="Guardar" />
+        </div>
+    </div>
+}
