@@ -36,6 +36,7 @@ namespace WebApplication.Models
         [Required]
         [Display(Name = "Dirección")]
         [StringLength(200, ErrorMessage = "La longitud máxima es 200")]
+        [DataType(DataType.MultilineText)]
         public string direccion { get; set; }
 
         [Required]

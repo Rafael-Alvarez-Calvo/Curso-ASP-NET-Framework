@@ -16,19 +16,26 @@
                 <td>@Html.LabelFor(p => Model[0].direccion)</td>
                 <td>@Html.LabelFor(p => Model[0].telefono)</td>
                 <td>@Html.LabelFor(p => Model[0].email)</td>
+                <td>Operaciones</td>
             </tr>
 
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.iidsucursal</td>
-                    <td>@item.nombre</td>
-                    <td>@item.direccion</td>
-                    <td>@item.telefono</td>
-                    <td>@item.email</td>
-                </tr>
+            <tr>
+                <td>@item.iidsucursal</td>
+                <td>@item.nombre</td>
+                <td>@item.direccion</td>
+                <td>@item.telefono</td>
+                <td>@item.email</td>
+                <td>
+                    <div class="d-flex justify-content-around">
+                        @Html.ActionLink(" ", "Editar", "Sucursal", new { id = @item.iidsucursal }, new { @id = item.iidsucursal, @class = "fas fa-edit btn btn-warning" })
+                        @Html.ActionLink(" ", "Borrar", "Sucursal", new { id = @item.iidsucursal }, new { @id = item.iidsucursal, @class = "fas fa-trash-alt btn btn-danger" })
+                    </div>
+                </td>
+            </tr>
 
             }
         </tbody>

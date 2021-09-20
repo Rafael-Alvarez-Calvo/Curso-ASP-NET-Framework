@@ -1,0 +1,100 @@
+﻿@model WebApplication.Models.BusCLS
+
+@{
+    ViewBag.Title = "Agregar";
+
+    List<SelectListItem> listaTipoBus = (List<SelectListItem>)ViewBag.listaTipoBus;
+    List<SelectListItem> listaMarca = (List<SelectListItem>)ViewBag.listaMarca;
+    List<SelectListItem> listaModelo = (List<SelectListItem>)ViewBag.listaModelo;
+    List<SelectListItem> listaSucursal = (List<SelectListItem>)ViewBag.listaSucursal;
+}
+
+<h2>Agregar Buses</h2>
+
+@using (Html.BeginForm("Agregar", "Bus", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="row">
+        <div class="col-6">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <div>
+                @Html.LabelFor(model => model.iidSucursal)
+                @Html.DropDownList("iidSucursal", listaSucursal, null, new { @class = "form-control mb-2" })
+                @Html.ValidationMessageFor(model => model.iidSucursal, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.iidMarca)
+                @Html.DropDownList("iidMarca", listaMarca, null, new { @class = "form-control mb-2" })
+                @Html.ValidationMessageFor(model => model.iidMarca, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.iidModelo)
+                @Html.DropDownList("iidModelo", listaModelo, null, new { @class = "form-control mb-2" })
+                @Html.ValidationMessageFor(model => model.iidModelo, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.iidTipoBus)
+                @Html.DropDownList("iidTipoBus", listaTipoBus, null, new { @class = "form-control mb-2" })
+                @Html.ValidationMessageFor(model => model.iidTipoBus, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.placa)
+                @Html.EditorFor(model => model.placa, new { htmlAttributes = new { @class = "form-control mb-2" } })
+                @Html.ValidationMessageFor(model => model.placa, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.nombreMarca)
+                @Html.EditorFor(model => model.nombreMarca, new { htmlAttributes = new { @class = "form-control mb-2" } })
+                @Html.ValidationMessageFor(model => model.nombreMarca, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div>
+                @Html.LabelFor(model => model.fechaCompra)
+                @Html.EditorFor(model => model.fechaCompra, new { htmlAttributes = new { @class = "form-control mb-2" } })
+                @Html.ValidationMessageFor(model => model.fechaCompra, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.numeroFilas)
+                @Html.EditorFor(model => model.numeroFilas, new { htmlAttributes = new { @class = "form-control mb-2" } })
+                @Html.ValidationMessageFor(model => model.numeroFilas, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.numeroColumnas)
+                @Html.EditorFor(model => model.numeroColumnas, new { htmlAttributes = new { @class = "form-control mb-2" } })
+                @Html.ValidationMessageFor(model => model.numeroColumnas, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.descripcion)
+                @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control mb-2" } })
+                @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.observacion)
+
+                @Html.EditorFor(model => model.observacion, new { htmlAttributes = new { @class = "form-control mb-2" } })
+                @Html.ValidationMessageFor(model => model.observacion, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="d-flex justify-content-around" style="margin-top:1.9rem;">
+                <input type="submit" value="Create" class="btn btn-success w-100" />
+            </div>
+        </div>
+        
+    </div>
+}
+
+

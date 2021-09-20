@@ -17,20 +17,27 @@
                 <td>@Html.LabelFor(p => Model[0].fechacontrato)</td>
                 <td>@Html.LabelFor(p => Model[0].nombreTipoContrato)</td>
                 <td>@Html.LabelFor(p => Model[0].nombreTipoUsuario)</td>
+                <td class="text-center">Operaciones</td>
             </tr>
         </thead>
 
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.iidempleado</td>
-                    <td>@item.nombre.ToLower() @item.appaterno.ToLower() @item.apmaterno.ToLower()</td>
-                    @*<td>@item.sueldo.ToString() €</td>*@
-                    <td>@item.fechacontrato</td>
-                    <td>@item.nombreTipoContrato</td>
-                    <td>@item.nombreTipoUsuario</td>
-                </tr>
+            <tr>
+                <td>@item.iidempleado</td>
+                <td>@item.nombre.ToLower() @item.appaterno.ToLower() @item.apmaterno.ToLower()</td>
+                @*<td>@item.sueldo.ToString() €</td>*@
+                <td>@item.fechacontrato</td>
+                <td>@item.nombreTipoContrato</td>
+                <td>@item.nombreTipoUsuario</td>
+                <td>
+                    <div class="d-flex justify-content-around">
+                        @Html.ActionLink(" ", "Editar", "Empleado", new { id = @item.iidempleado }, new { @id = item.iidempleado, @class = "fas fa-edit btn btn-warning" })
+                        @Html.ActionLink(" ", "Borrar", "Empleado", new { id = @item.iidempleado }, new { @id = item.iidempleado, @class = "fas fa-trash-alt btn btn-danger" })
+                    </div>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

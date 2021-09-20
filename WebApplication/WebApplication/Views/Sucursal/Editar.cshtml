@@ -1,0 +1,57 @@
+﻿@using WebApplication.Models;
+@model SucursalCLS
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Editar Sucursal</h2>
+
+@using (Html.BeginForm("Editar", "Sucursal", FormMethod.Post))
+ {
+    <div class="row d-flex">
+        <div class="col-6">
+            <div>
+                @Html.LabelFor(p => p.iidsucursal)
+                @Html.TextBoxFor(p => p.iidsucursal, new { @class = "form-control", @disabled = true }) @* Esta linea crea un input tipo texto con la clase form-control*@
+                @Html.ValidationMessage("iidsucursal", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(p => p.nombre)
+                @Html.TextBoxFor(p => p.nombre, new { @class = "form-control" }) @* Esta linea crea un input tipo texto con la clase form-control*@
+                @Html.ValidationMessage("nombre", new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(p => p.direccion)
+                @Html.TextBoxFor(p => p.direccion, new { @class = "form-control" })
+                @Html.ValidationMessage("direccion", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+        <div class="col-6">
+
+            <div>
+                @Html.LabelFor(p => p.fechaApertura)
+                @Html.TextBoxFor(p => p.fechaApertura, new { @class = "form-control", @disabled = true })
+                @Html.ValidationMessage("fechaApertura", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(p => p.telefono)
+                @Html.TextBoxFor(p => p.telefono, new { @class = "form-control" }) @* Esta linea crea un input tipo texto con la clase form-control*@
+                @Html.ValidationMessage("telefono", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(p => p.email)
+                @Html.TextBoxFor(p => p.email, new { @class = "form-control" }) @* Esta linea crea un input tipo texto con la clase form-control*@
+                @Html.ValidationMessage("email", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 mt-3 d-flex justify-content-end">
+        <input type="submit" class="btn btn-primary" value="Guardar" />
+    </div>
+ }

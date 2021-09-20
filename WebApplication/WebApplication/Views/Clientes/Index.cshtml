@@ -12,37 +12,44 @@
         <thead class="table-dark">
             <tr>
                 <td width="5%">@Html.LabelFor(p => Model[0].iidcliente)</td>
-                <td width="25%">@Html.LabelFor(p => Model[0].nombre)</td>
-                <td width="25%">@Html.LabelFor(p => Model[0].direccion)</td>
+                <td width="20%">@Html.LabelFor(p => Model[0].nombre)</td>
+                <td width="20%">@Html.LabelFor(p => Model[0].direccion)</td>
                 <td width="15%">@Html.LabelFor(p => Model[0].email)</td>
                 <td width="10%">@Html.LabelFor(p => Model[0].iidsexo)</td>
                 <td width="10%">@Html.LabelFor(p => Model[0].telefonofijo)</td>
                 <td width="10%">@Html.LabelFor(p => Model[0].telefonocelular)</td>
+                <td width="10%">Operaciones</td>
             </tr>
 
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.iidcliente</td>
-                    <td>@item.nombre.ToLower() @item.appaterno.ToLower() @item.apmaterno.ToLower()</td>
-                    <td>@item.direccion.ToLower()</td>
-                    <td>@item.email.ToLower()</td>
+            <tr>
+                <td>@item.iidcliente</td>
+                <td>@item.nombre.ToLower() @item.appaterno.ToLower() @item.apmaterno.ToLower()</td>
+                <td>@item.direccion.ToLower()</td>
+                <td>@item.email.ToLower()</td>
 
-                    @if (item.iidsexo == 1)
-                    {
-                        <td>Hombre</td>
+                @if (item.iidsexo == 1)
+                {
+                    <td>Hombre</td>
 
-                    }
-                    else
-                    {
-                        <td>Mujer</td>
-                    }
+                }
+                else
+                {
+                    <td>Mujer</td>
+                }
 
-                    <td>@item.telefonofijo</td>
-                    <td>@item.telefonocelular</td>
-                </tr>
+                <td>@item.telefonofijo</td>
+                <td>@item.telefonocelular</td>
+                <td>
+                    <div class="d-flex justify-content-around">
+                        @Html.ActionLink(" ", "Editar", "Clientes", new { id = @item.iidcliente }, new { @id = item.iidcliente, @class = "fas fa-edit btn btn-warning" })
+                        @Html.ActionLink(" ", "Borrar", "Clientes", new { id = @item.iidcliente }, new { @id = item.iidcliente, @class = "fas fa-trash-alt btn btn-danger" })
+                    </div>
+                </td>
+            </tr>
 
             }
         </tbody>

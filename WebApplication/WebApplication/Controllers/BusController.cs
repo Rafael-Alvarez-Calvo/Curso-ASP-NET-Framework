@@ -42,5 +42,104 @@ namespace WebApplication.Controllers
 
             return View(listaBuses);
         }
+
+
+        public void setModelSelector()
+        {
+            List<SelectListItem> lista;
+
+            using (var bd = new BDPasajeEntities())
+            {
+                lista = (from item in bd.Modelo
+                         where item.BHABILITADO == 1
+                         select new SelectListItem
+                         {
+                             Text = item.NOMBRE,
+                             Value = item.IIDMODELO.ToString()
+
+                         }).ToList();
+
+                lista.Insert(0, new SelectListItem { Text = "-- Seleccione --", Value = "" });
+                ViewBag.listaModelo = lista;
+            }
+        }
+
+        public void setBusTypeSelector()
+        {
+            List<SelectListItem> lista;
+
+            using (var bd = new BDPasajeEntities())
+            {
+                lista = (from item in bd.TipoBus
+                         where item.BHABILITADO == 1
+                         select new SelectListItem
+                         {
+                             Text = item.NOMBRE,
+                             Value = item.IIDTIPOBUS.ToString()
+
+                         }).ToList();
+
+                lista.Insert(0, new SelectListItem { Text = "-- Seleccione --", Value = "" });
+
+                ViewBag.listaTipoBus = lista;
+            }
+        }
+
+        public void setBrandSelector()
+        {
+            List<SelectListItem> lista;
+
+            using (var bd = new BDPasajeEntities())
+            {
+                lista = (from item in bd.Marca
+                         where item.BHABILITADO == 1
+                         select new SelectListItem
+                         {
+                             Text = item.NOMBRE,
+                             Value = item.IIDMARCA.ToString()
+
+                         }).ToList();
+
+                lista.Insert(0, new SelectListItem { Text = "-- Seleccione --", Value = "" });
+                ViewBag.listaMarca = lista;
+            }
+        }
+
+        public void setSucursalSelector()
+        {
+            List<SelectListItem> lista;
+
+            using (var bd = new BDPasajeEntities())
+            {
+                lista = (from item in bd.Sucursal
+                         where item.BHABILITADO == 1
+                         select new SelectListItem
+                         {
+                             Text = item.NOMBRE,
+                             Value = item.IIDSUCURSAL.ToString()
+
+                         }).ToList();
+
+                lista.Insert(0, new SelectListItem { Text = "-- Seleccione --", Value = "" });
+
+                ViewBag.listaSucursal = lista;
+            }
+        }
+
+        public void setSelectors()
+        {
+            setBrandSelector();
+            setBusTypeSelector();
+            setModelSelector();
+            setSucursalSelector();
+        }
+
+
+        public ActionResult Agregar()
+        {
+            setSelectors();
+
+            return View();
+        }
     }
 }

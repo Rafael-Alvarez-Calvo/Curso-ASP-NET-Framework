@@ -318,6 +318,10 @@
     <Content Include="Views\Marca\Editar.cshtml" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.0.min.map" />
+    <Content Include="Views\Sucursal\Editar.cshtml" />
+    <Content Include="Views\Clientes\Editar.cshtml" />
+    <Content Include="Views\Empleado\Editar.cshtml" />
+    <Content Include="Views\Bus\Agregar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

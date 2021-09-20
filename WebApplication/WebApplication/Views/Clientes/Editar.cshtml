@@ -1,0 +1,79 @@
+﻿@using WebApplication.Models;
+@model ClientesCLS
+
+@{
+    ViewBag.Title = "Editar";
+    List<SelectListItem> listaSexo = (List<SelectListItem>) ViewBag.lista;
+}
+
+<h2>Editar Cliente</h2>
+
+@using (Html.BeginForm("Editar", "Clientes", FormMethod.Post))
+{
+    <div class="row d-flex">
+        <div class="col-6">
+            <div>
+                @Html.LabelFor(p => p.iidcliente)
+                @Html.TextBoxFor(p => p.iidcliente, new { @class = "form-control mb-2", @disabled = true }) @* Esta linea crea un input tipo texto con la clase form-control mb-2*@
+                @Html.ValidationMessage("iidcliente", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(p => p.nombre)
+                @Html.TextBoxFor(p => p.nombre, new { @class = "form-control mb-2" }) @* Esta linea crea un input tipo texto con la clase form-control mb-2*@
+                @Html.ValidationMessage("nombre", new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(p => p.appaterno)
+                @Html.TextBoxFor(p => p.appaterno, new { @class = "form-control mb-2" })
+                @Html.ValidationMessage("appaterno", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(p => p.telefonofijo)
+                @Html.TextBoxFor(p => p.telefonofijo, new { @class = "form-control mb-2" })
+                @Html.ValidationMessage("telefonofijo", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(p => p.email)
+                @Html.TextBoxFor(p => p.email, new { @class = "form-control mb-2" }) @* Esta linea crea un input tipo texto con la clase form-control mb-2*@
+                @Html.ValidationMessage("email", new { @class = "text-danger" })
+            </div>
+
+
+        </div>
+
+        <div class="col-6">
+            <div>
+                @Html.LabelFor(p => p.iidsexo)
+                @Html.DropDownList("iidsexo", listaSexo, null, new { @class = "form-control mb-2" })
+                @Html.ValidationMessage("iidsexo", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(p => p.direccion)
+                @Html.TextBoxFor(p => p.direccion, new { @class = "form-control mb-2" })
+                @Html.ValidationMessage("direccion", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(p => p.apmaterno)
+                @Html.TextBoxFor(p => p.apmaterno, new { @class = "form-control mb-2" }) @* Esta linea crea un input tipo texto con la clase form-control mb-2*@
+                @Html.ValidationMessage("apmaterno", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(p => p.telefonocelular)
+                @Html.TextBoxFor(p => p.telefonocelular, new { @class = "form-control" }) @* Esta linea crea un input tipo texto con la clase form-control mb-2*@
+                @Html.ValidationMessage("telefonocelular", new { @class = "text-danger" })
+            </div>
+
+            <div class="d-flex justify-content-center" style="margin-top:2rem">
+                <input type="submit" class="btn btn-primary w-100" value="Guardar" />
+            </div>
+        </div>
+    </div>
+
+    
+}

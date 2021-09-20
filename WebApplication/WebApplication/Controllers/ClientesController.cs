@@ -93,5 +93,31 @@ namespace WebApplication.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult Editar(int id)
+        {
+            ClientesCLS oClienteCLS = new ClientesCLS();
+
+            using( var bd = new BDPasajeEntities())
+            {
+                
+                setSexSelector();
+
+                Cliente oCliente = bd.Cliente.Where(p => p.IIDCLIENTE.Equals(id)).First();
+
+                oClienteCLS.iidcliente = oCliente.IIDCLIENTE;
+                oClienteCLS.nombre = oCliente.NOMBRE;
+                oClienteCLS.direccion = oCliente.DIRECCION;
+                oClienteCLS.appaterno = oCliente.APPATERNO;
+                oClienteCLS.apmaterno = oCliente.APMATERNO;
+                oClienteCLS.telefonofijo = oCliente.TELEFONOFIJO;
+                oClienteCLS.telefonocelular = oCliente.TELEFONOCELULAR;
+                oClienteCLS.email = oCliente.EMAIL;
+                oClienteCLS.iidsexo = (int)oCliente.IIDSEXO;
+
+            }
+
+            return View(oClienteCLS);
+        }
     }
 }

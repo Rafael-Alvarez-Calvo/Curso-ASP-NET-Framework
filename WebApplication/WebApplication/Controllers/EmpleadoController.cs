@@ -145,5 +145,30 @@ namespace WebApplication.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult Editar(int id)
+        {
+            setSelectors();
+
+            EmpleadoCLS oEmpleadoCLS = new EmpleadoCLS();
+
+            using( var bd = new BDPasajeEntities())
+            {
+                Empleado oEmpleado = bd.Empleado.Where(p => p.IIDEMPLEADO.Equals(id)).First();
+
+                oEmpleado.IIDEMPLEADO = oEmpleadoCLS.iidempleado;
+                oEmpleado.NOMBRE = oEmpleadoCLS.nombre;
+                oEmpleado.IIDSEXO = oEmpleadoCLS.iidSexo;
+                oEmpleado.APPATERNO = oEmpleadoCLS.appaterno;
+                oEmpleado.APMATERNO = oEmpleadoCLS.apmaterno;
+                oEmpleado.FECHACONTRATO = oEmpleadoCLS.fechacontrato;
+                //oEmpleado.SUELDO = oEmpleadoCLS.sueldo;
+                oEmpleado.IIDTIPOCONTRATO = oEmpleadoCLS.iidtipoContrato;
+                oEmpleado.IIDTIPOUSUARIO = oEmpleadoCLS.iidtipoUsuario;
+
+            }
+
+            return View(oEmpleadoCLS);
+        }
     }
 }
