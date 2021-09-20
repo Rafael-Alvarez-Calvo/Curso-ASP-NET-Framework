@@ -29,9 +29,7 @@ namespace WebApplication.Controllers
                                     descripcion = marca.DESCRIPCION
 
                                 }).ToList();
-
             }
-
 
             return View(listaMarca);
         }

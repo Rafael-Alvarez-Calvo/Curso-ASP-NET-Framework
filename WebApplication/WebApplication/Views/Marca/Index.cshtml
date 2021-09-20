@@ -29,8 +29,8 @@
                     <td>@item.descripcion</td>
                     <td>
                         <div class="d-flex justify-content-around">
-                            @Html.ActionLink(" ", "Editar", "Marca", null, new { @id= item.iidmarca, @class = "fas fa-edit btn btn-warning" })
-                            @Html.ActionLink(" ", "Borrar", "Marca", null, new { @id= item.iidmarca , @class = "fas fa-trash-alt btn btn-danger" })
+                            @Html.ActionLink(" ", "Editar", "Marca", new { id = item.iidmarca }, new { @id = item.iidmarca, @class = "fas fa-edit btn btn-warning" })
+                            @Html.ActionLink(" ", "Borrar", "Marca", new { id = item.iidmarca }, new { @id= item.iidmarca , @class = "fas fa-trash-alt btn btn-danger" })
                         </div>
                     </td>
                 </tr>
