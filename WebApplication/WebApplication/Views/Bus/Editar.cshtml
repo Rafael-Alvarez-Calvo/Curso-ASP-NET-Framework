@@ -1,7 +1,8 @@
-﻿@model WebApplication.Models.BusCLS
+﻿@using WebApplication.Models;
+@model BusCLS
 
 @{
-    ViewBag.Title = "Agregar";
+    ViewBag.Title = "Editar";
 
     List<SelectListItem> listaTipoBus = (List<SelectListItem>)ViewBag.listaTipoBus;
     List<SelectListItem> listaMarca = (List<SelectListItem>)ViewBag.listaMarca;
@@ -9,16 +10,21 @@
     List<SelectListItem> listaSucursal = (List<SelectListItem>)ViewBag.listaSucursal;
 }
 
-<h2>Agregar Buses</h2>
+<h2>Editar Buses</h2>
 
-@using (Html.BeginForm("Agregar", "Bus", FormMethod.Post)) 
+@using (Html.BeginForm("Editar", "Bus", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="row">
         <div class="col-6">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+            <div>
+                @Html.LabelFor(model => model.iidbus)
+                @Html.EditorFor(model => model.iidbus, new { htmlAttributes = new { @class = "form-control mb-2", @disabled = true } })
+                @Html.ValidationMessageFor(model => model.iidbus, "", new { @class = "text-danger" })
+            </div>
 
             <div>
                 @Html.LabelFor(model => model.iidSucursal)
@@ -33,21 +39,15 @@
             </div>
 
             <div>
-                @Html.LabelFor(model => model.iidModelo)
-                @Html.DropDownList("iidModelo", listaModelo, null, new { @class = "form-control mb-2" })
-                @Html.ValidationMessageFor(model => model.iidModelo, "", new { @class = "text-danger" })
-            </div>
-
-            <div>
-                @Html.LabelFor(model => model.iidTipoBus)
-                @Html.DropDownList("iidTipoBus", listaTipoBus, null, new { @class = "form-control mb-2" })
-                @Html.ValidationMessageFor(model => model.iidTipoBus, "", new { @class = "text-danger" })
-            </div>
-
-            <div>
                 @Html.LabelFor(model => model.placa)
                 @Html.EditorFor(model => model.placa, new { htmlAttributes = new { @class = "form-control mb-2" } })
                 @Html.ValidationMessageFor(model => model.placa, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.descripcion)
+                @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control mb-2" } })
+                @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
             </div>
 
         </div>
@@ -60,26 +60,35 @@
             </div>
 
             <div>
-                @Html.LabelFor(model => model.numeroFilas)
-                @Html.EditorFor(model => model.numeroFilas, new { htmlAttributes = new { @class = "form-control mb-2" } })
-                @Html.ValidationMessageFor(model => model.numeroFilas, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.iidTipoBus)
+                @Html.DropDownList("iidTipoBus", listaTipoBus, null, new { @class = "form-control mb-2" })
+                @Html.ValidationMessageFor(model => model.iidTipoBus, "", new { @class = "text-danger" })
             </div>
 
             <div>
-                @Html.LabelFor(model => model.numeroColumnas)
-                @Html.EditorFor(model => model.numeroColumnas, new { htmlAttributes = new { @class = "form-control mb-2" } })
-                @Html.ValidationMessageFor(model => model.numeroColumnas, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.iidModelo)
+                @Html.DropDownList("iidModelo", listaModelo, null, new { @class = "form-control mb-2" })
+                @Html.ValidationMessageFor(model => model.iidModelo, "", new { @class = "text-danger" })
             </div>
 
-            <div>
-                @Html.LabelFor(model => model.descripcion)
-                @Html.EditorFor(model => model.descripcion, new { htmlAttributes = new { @class = "form-control mb-2" } })
-                @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+            <div class="col-12 d-flex">
+                <div class="col-6 pe-2">
+                    @Html.LabelFor(model => model.numeroFilas)
+                    @Html.EditorFor(model => model.numeroFilas, new { htmlAttributes = new { @class = "form-control mb-2" } })
+                    @Html.ValidationMessageFor(model => model.numeroFilas, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-6 ps-2">
+                    @Html.LabelFor(model => model.numeroColumnas)
+                    @Html.EditorFor(model => model.numeroColumnas, new { htmlAttributes = new { @class = "form-control mb-2" } })
+                    @Html.ValidationMessageFor(model => model.numeroColumnas, "", new { @class = "text-danger" })
+                </div>
             </div>
+
+            
 
             <div>
                 @Html.LabelFor(model => model.observacion)
-
                 @Html.EditorFor(model => model.observacion, new { htmlAttributes = new { @class = "form-control mb-2" } })
                 @Html.ValidationMessageFor(model => model.observacion, "", new { @class = "text-danger" })
             </div>
@@ -88,8 +97,7 @@
                 <input type="submit" value="Guardar" class="btn btn-success w-25" />
             </div>
         </div>
-        
+
     </div>
 }
-
 

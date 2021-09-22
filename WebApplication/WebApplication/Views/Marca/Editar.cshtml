@@ -9,17 +9,17 @@
 
 <div class="row">
     <div class="col-6">
-        @using (Html.BeginForm("Editar", "Marca", FormMethod.Get))
+        @using (Html.BeginForm("Editar", "Marca", FormMethod.Post, new {  @id="frmEditar"}))
         {
             <div>
                 @Html.LabelFor(p => p.iidmarca)
-                @Html.TextBoxFor(p => p.iidmarca, new { @class = "form-control" , @disabled = true}) @* Esta linea crea un input tipo texto con la clase form-control*@
+                @Html.TextBoxFor(p => p.iidmarca, new { @class = "form-control mb-2" , @disabled = true}) @* Esta linea crea un input tipo texto con la clase form-control*@
                 @Html.ValidationMessage("iidmarca", new { @class = "text-danger" })
             </div>
             
             <div>
                 @Html.LabelFor(p => p.nombre)
-                @Html.TextBoxFor(p => p.nombre, new { @class = "form-control" }) @* Esta linea crea un input tipo texto con la clase form-control*@
+                @Html.TextBoxFor(p => p.nombre, new { @class = "form-control mb-2" }) @* Esta linea crea un input tipo texto con la clase form-control*@
                 @Html.ValidationMessage("nombre", new { @class = "text-danger" })
             </div>
             <div>
@@ -27,10 +27,22 @@
                 @Html.TextBoxFor(p => p.descripcion, new { @class = "form-control" })
                 @Html.ValidationMessage("descripcion", new { @class = "text-danger" })
             </div>
-            <div class="mt-3">
-                <input type="submit" class="btn btn-primary" value="Guardar" />
+            <div class="d-flex justify-content-between mt-3">
+                @Html.ActionLink("Atrás", "Index", "Marca", null, new { @class = "btn btn-info w-25", @style = "color:white;"})
+                <input type="submit" class="btn btn-primary w-25" value="Guardar" />
             </div>
         }
     </div>
 </div>
 
+<script>
+
+    var frmEditar = document.getElementById("frmEditar");
+
+    frmEditar.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+    })
+
+
+</script>

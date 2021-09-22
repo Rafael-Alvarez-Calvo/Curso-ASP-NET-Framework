@@ -138,8 +138,66 @@ namespace WebApplication.Controllers
         public ActionResult Agregar()
         {
             setSelectors();
-
             return View();
+        }
+        
+        [HttpPost]
+        public ActionResult Agregar(BusCLS oBusCLS)
+        {
+
+            if(!ModelState.IsValid)
+            {
+                return View(oBusCLS);
+            }
+            else
+            {
+                using( var bd = new BDPasajeEntities())
+                {
+                    Bus oBus = new Bus();
+
+                    oBus.IIDSUCURSAL = oBusCLS.iidSucursal;
+                    oBus.IIDTIPOBUS = oBusCLS.iidTipoBus;
+                    oBus.PLACA = oBusCLS.placa;
+                    oBus.FECHACOMPRA = oBusCLS.fechaCompra;
+                    oBus.IIDMODELO = oBusCLS.iidModelo;
+                    oBus.NUMEROCOLUMNAS = oBusCLS.numeroColumnas;
+                    oBus.NUMEROFILAS = oBusCLS.numeroFilas;
+                    oBus.DESCRIPCION = oBusCLS.descripcion;
+                    oBus.OBSERVACION = oBusCLS.observacion;
+                    oBus.IIDMARCA = oBusCLS.iidMarca;
+                    oBus.BHABILITADO = 1;
+
+                    bd.Bus.Add(oBus);
+                    bd.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+        public ActionResult Editar(int id)
+        {
+            setSelectors();
+            BusCLS oBusCLS = new BusCLS();
+            using (var bd = new BDPasajeEntities())
+            {
+                Bus oBus = bd.Bus.Where(p => p.IIDBUS.Equals(id)).First();
+
+                oBusCLS.iidbus = oBus.IIDBUS;
+                oBusCLS.iidSucursal = (int)oBus.IIDSUCURSAL;
+                oBusCLS.iidTipoBus = (int)oBus.IIDTIPOBUS;
+                oBusCLS.iidModelo = (int)oBus.IIDMODELO;
+                oBusCLS.iidMarca = (int)oBus.IIDMARCA;
+                oBusCLS.placa = oBus.PLACA;
+                oBusCLS.fechaCompra = (DateTime)oBus.FECHACOMPRA;
+                oBusCLS.numeroFilas = (int)oBus.NUMEROFILAS;
+                oBusCLS.numeroColumnas = (int)oBus.NUMEROCOLUMNAS;
+                oBusCLS.descripcion = oBus.DESCRIPCION;
+                oBusCLS.observacion = oBus.OBSERVACION;
+            }
+
+            return View(oBusCLS);
         }
     }
 }

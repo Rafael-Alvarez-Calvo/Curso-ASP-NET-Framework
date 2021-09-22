@@ -17,20 +17,27 @@
                 <td>@Html.LabelFor(p => Model[0].placa)</td>
                 <td>@Html.LabelFor(p => Model[0].nombreTipoBus)</td>
                 <td>@Html.LabelFor(p => Model[0].nombreSucursal)</td>
+                <td>Operaciones</td>
             </tr>
 
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.iidbus</td>
-                    <td>@item.nombreMarca</td>
-                    <td>@item.nombreModelo</td>
-                    <td>@item.placa</td>
-                    <td>@item.nombreTipoBus</td>
-                    <td>@item.nombreSucursal</td>
-                </tr>
+            <tr>
+                <td>@item.iidbus</td>
+                <td>@item.nombreMarca</td>
+                <td>@item.nombreModelo</td>
+                <td>@item.placa</td>
+                <td>@item.nombreTipoBus</td>
+                <td>@item.nombreSucursal</td>
+                <td>
+                    <div class="d-flex justify-content-evenly">
+                        @Html.ActionLink(" ", "Editar", "Bus", new { id = @item.iidbus }, new { @id = item.iidbus, @class = "fas fa-edit btn btn-warning" })
+                        @Html.ActionLink(" ", "Borrar", "Bus", new { id = @item.iidbus }, new { @id = item.iidbus, @class = "fas fa-trash-alt btn btn-danger" })
+                    </div>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
