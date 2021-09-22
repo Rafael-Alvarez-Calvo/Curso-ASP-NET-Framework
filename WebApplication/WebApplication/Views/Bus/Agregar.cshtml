@@ -11,7 +11,7 @@
 
 <h2>Agregar Buses</h2>
 
-@using (Html.BeginForm("Agregar", "Bus", FormMethod.Post)) 
+@using (Html.BeginForm("Agregar", "Bus", FormMethod.Post, new { @id = "frmAgregar"}))
 {
     @Html.AntiForgeryToken()
     
@@ -79,7 +79,6 @@
 
             <div>
                 @Html.LabelFor(model => model.observacion)
-
                 @Html.EditorFor(model => model.observacion, new { htmlAttributes = new { @class = "form-control mb-2" } })
                 @Html.ValidationMessageFor(model => model.observacion, "", new { @class = "text-danger" })
             </div>
@@ -91,5 +90,20 @@
         
     </div>
 }
+
+<script>
+
+    var frmAgregar = document.getElementById("frmAgregar");
+
+    frmAgregar.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        if (confirm("¿Deseas guardar los cambios?") == 1) {
+            frmAgregar.submit();
+        }
+    })
+
+
+</script>
 
 

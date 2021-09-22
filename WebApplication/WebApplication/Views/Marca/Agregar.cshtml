@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-6">
-        @using (Html.BeginForm("Agregar", "Marca", FormMethod.Post))
+        @using (Html.BeginForm("Agregar", "Marca", FormMethod.Post, new { @id = "frmAgregar" }))
         {
             <div>
                 @Html.LabelFor(p => p.nombre)
@@ -27,3 +27,18 @@
         }
     </div>
 </div>
+
+<script>
+
+    var frmAgregar = document.getElementById("frmAgregar");
+
+    frmAgregar.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        if (confirm("¿Deseas guardar los cambios?") == 1) {
+            frmAgregar.submit();
+        }
+    })
+
+
+</script>

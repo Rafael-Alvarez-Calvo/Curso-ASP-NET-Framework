@@ -13,7 +13,7 @@
         {
             <div>
                 @Html.LabelFor(p => p.iidmarca)
-                @Html.TextBoxFor(p => p.iidmarca, new { @class = "form-control mb-2" , @disabled = true}) @* Esta linea crea un input tipo texto con la clase form-control*@
+                @Html.TextBoxFor(p => p.iidmarca, new { @class = "form-control mb-2" , @readonly = true}) @* Esta linea crea un input tipo texto con la clase form-control*@
                 @Html.ValidationMessage("iidmarca", new { @class = "text-danger" })
             </div>
             
@@ -42,6 +42,9 @@
     frmEditar.addEventListener("submit", (e) => {
         e.preventDefault();
 
+        if (confirm("¿Deseas guardar los cambios?") == 1) {
+            frmEditar.submit();
+        }
     })
 
 

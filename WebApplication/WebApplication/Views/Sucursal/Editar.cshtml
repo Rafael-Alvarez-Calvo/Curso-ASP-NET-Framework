@@ -6,13 +6,14 @@
 
 <h2>Editar Sucursal</h2>
 
-@using (Html.BeginForm("Editar", "Sucursal", FormMethod.Post))
- {
+@using (Html.BeginForm("Editar", "Sucursal", FormMethod.Post, new { @id = "frmEditarSucursal" }))
+{
     <div class="row d-flex">
         <div class="col-6">
             <div>
                 @Html.LabelFor(p => p.iidsucursal)
-                @Html.TextBoxFor(p => p.iidsucursal, new { @class = "form-control", @disabled = true }) @* Esta linea crea un input tipo texto con la clase form-control*@
+                @Html.TextBoxFor(p => p.iidsucursal, new { @class = "form-control", @readonly = true }) @* Esta linea crea un input tipo texto con la clase form-control*@
+                @*con el atributo disable el controlador no puede recoger el valor id *@
                 @Html.ValidationMessage("iidsucursal", new { @class = "text-danger" })
             </div>
 
@@ -33,7 +34,7 @@
 
             <div>
                 @Html.LabelFor(p => p.fechaApertura)
-                @Html.TextBoxFor(p => p.fechaApertura, new { @class = "form-control", @disabled = true })
+                @Html.TextBoxFor(p => p.fechaApertura, new { @class = "form-control", @readonly = true }) @*con el atributo disable el controlador no puede recoger el valor fechaapertura *@
                 @Html.ValidationMessage("fechaApertura", new { @class = "text-danger" })
             </div>
 
@@ -51,7 +52,21 @@
         </div>
     </div>
 
-    <div class="col-12 mt-3 d-flex justify-content-end">
-        <input type="submit" class="btn btn-primary" value="Guardar" />
+    <div class="d-flex justify-content-between mt-3">
+        @Html.ActionLink("Atrás", "Index", "Sucursal", null, new { @class = "btn btn-info w-25", @style = "color:white;"})
+        <input type="submit" class="btn btn-primary w-25" value="Guardar" />
     </div>
  }
+
+<script>
+
+    const frmEditarSucursal = document.getElementById("frmEditarSucursal");
+
+    frmEditarSucursal.addEventListener("submit", e => {
+
+        e.preventDefault();
+        confirm(`¿Desea editar la sucursal?`) == 1 && frmEditarSucursal.submit();
+        
+    });
+
+</script>
