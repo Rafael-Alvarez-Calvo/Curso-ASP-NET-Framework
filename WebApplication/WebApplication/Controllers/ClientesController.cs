@@ -119,5 +119,39 @@ namespace WebApplication.Controllers
 
             return View(oClienteCLS);
         }
+
+
+        [HttpPost]
+        public ActionResult Editar(ClientesCLS oClienteCLS)
+        {
+            if(!ModelState.IsValid)
+            {
+                setSexSelector();
+                return View(oClienteCLS);
+            }
+            else
+            {
+                int idCliente = oClienteCLS.iidcliente;
+
+                using( var bd = new BDPasajeEntities())
+                {
+                    Cliente oCliente = bd.Cliente.Where(p => p.IIDCLIENTE.Equals(idCliente)).First();
+
+                    oCliente.NOMBRE = oClienteCLS.nombre;
+                    oCliente.DIRECCION = oClienteCLS.direccion;
+                    oCliente.APPATERNO = oClienteCLS.appaterno;
+                    oCliente.APMATERNO = oClienteCLS.apmaterno;
+                    oCliente.TELEFONOFIJO = oClienteCLS.telefonofijo;
+                    oCliente.TELEFONOCELULAR = oClienteCLS.telefonocelular;
+                    oCliente.EMAIL = oClienteCLS.email;
+                    oCliente.IIDSEXO = oClienteCLS.iidsexo;
+
+                    bd.SaveChanges();
+                }
+            }
+
+
+            return RedirectToAction("Index");
+        }
     }
 }
