@@ -105,6 +105,10 @@ namespace WebApplication.Controllers
 
                 Cliente oCliente = bd.Cliente.Where(p => p.IIDCLIENTE.Equals(id)).First();
 
+                //oClienteCLS = Es el objeto de la vista
+                //oCliente = es el objeto de la bd
+                //Por eso en este caso el valor de cada parametro se introduce en lka vista para poder pintarlo
+
                 oClienteCLS.iidcliente = oCliente.IIDCLIENTE;
                 oClienteCLS.nombre = oCliente.NOMBRE;
                 oClienteCLS.direccion = oCliente.DIRECCION;
@@ -136,6 +140,10 @@ namespace WebApplication.Controllers
                 using( var bd = new BDPasajeEntities())
                 {
                     Cliente oCliente = bd.Cliente.Where(p => p.IIDCLIENTE.Equals(idCliente)).First();
+
+                    //oClienteCLS = Es el objeto de la vista
+                    //oCliente = es el objeto de la bd
+                    //Por eso en este caso el valor de cada parametro se introduce en la bd para insertarlo
 
                     oCliente.NOMBRE = oClienteCLS.nombre;
                     oCliente.DIRECCION = oClienteCLS.direccion;

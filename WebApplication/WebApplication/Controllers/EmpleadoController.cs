@@ -146,6 +146,7 @@ namespace WebApplication.Controllers
             return RedirectToAction("Index");
         }
 
+       
         public ActionResult Editar(int id)
         {
             setSelectors();
@@ -156,19 +157,53 @@ namespace WebApplication.Controllers
             {
                 Empleado oEmpleado = bd.Empleado.Where(p => p.IIDEMPLEADO.Equals(id)).First();
 
-                oEmpleado.IIDEMPLEADO = oEmpleadoCLS.iidempleado;
-                oEmpleado.NOMBRE = oEmpleadoCLS.nombre;
-                oEmpleado.IIDSEXO = oEmpleadoCLS.iidSexo;
-                oEmpleado.APPATERNO = oEmpleadoCLS.appaterno;
-                oEmpleado.APMATERNO = oEmpleadoCLS.apmaterno;
-                oEmpleado.FECHACONTRATO = oEmpleadoCLS.fechacontrato;
-                //oEmpleado.SUELDO = oEmpleadoCLS.sueldo;
-                oEmpleado.IIDTIPOCONTRATO = oEmpleadoCLS.iidtipoContrato;
-                oEmpleado.IIDTIPOUSUARIO = oEmpleadoCLS.iidtipoUsuario;
+                oEmpleadoCLS.iidempleado = oEmpleado.IIDEMPLEADO;
+                oEmpleadoCLS.nombre = oEmpleado.NOMBRE;
+                oEmpleadoCLS.appaterno = oEmpleado.APPATERNO;
+                oEmpleadoCLS.apmaterno = oEmpleado.APMATERNO;
+                oEmpleadoCLS.fechacontrato = (DateTime)oEmpleado.FECHACONTRATO;
+                oEmpleadoCLS.iidSexo = (int)oEmpleado.IIDSEXO;
+                oEmpleadoCLS.iidtipoContrato = (int)oEmpleado.IIDTIPOCONTRATO;
+                oEmpleadoCLS.iidtipoUsuario = (int)oEmpleado.IIDTIPOUSUARIO;
+                //oEmpleaCLSdo.SUELDO = oEmpleadoCLS.sueldo;
 
             }
 
             return View(oEmpleadoCLS);
+        }
+
+        [HttpPost]
+        public ActionResult Editar(EmpleadoCLS oEmpleadoCLS)
+        {
+
+            if(!ModelState.IsValid)
+            {
+                setSelectors();
+                return View(oEmpleadoCLS);
+            }
+            else
+            {
+                int idEmpleado = oEmpleadoCLS.iidempleado;
+
+                using( var bd = new BDPasajeEntities())
+                {
+                    Empleado oEmpleado = bd.Empleado.Where(p => p.IIDEMPLEADO.Equals(idEmpleado)).First();
+
+                    oEmpleado.NOMBRE = oEmpleadoCLS.nombre;
+                    oEmpleado.APPATERNO = oEmpleadoCLS.appaterno;
+                    oEmpleado.APMATERNO = oEmpleadoCLS.apmaterno;
+                    oEmpleado.FECHACONTRATO = oEmpleadoCLS.fechacontrato;
+                    oEmpleado.IIDSEXO = oEmpleadoCLS.iidSexo;
+                    oEmpleado.IIDTIPOCONTRATO = oEmpleadoCLS.iidtipoContrato;
+                    oEmpleado.IIDTIPOUSUARIO = oEmpleadoCLS.iidtipoUsuario;
+
+                    bd.SaveChanges();
+
+                }
+
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

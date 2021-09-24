@@ -10,13 +10,13 @@
 
 <h2>Editar</h2>
 
-@using (Html.BeginForm("Editar", "Empleado", FormMethod.Post))
+@using (Html.BeginForm("Editar", "Empleado", FormMethod.Post, new { @id = "frmEditEmploye"}))
 {
     <div class="row d-flex">
         <div class="col-6">
             <div>
                 @Html.LabelFor(p => p.iidempleado)
-                @Html.TextBoxFor(p => p.iidempleado, new { @class = "form-control mb-2", @disabled = true }) @* Esta linea crea un input tipo texto con la clase form-control mb-2*@
+                @Html.TextBoxFor(p => p.iidempleado, new { @class = "form-control mb-2", @readonly = true }) @* Esta linea crea un input tipo texto con la clase form-control mb-2*@
                 @Html.ValidationMessage("iidempleado", new { @class = "text-danger" })
             </div>
 
@@ -33,8 +33,8 @@
 
             <div>
                 @Html.LabelFor(p => p.nombreTipoContrato)
-                @Html.TextBoxFor(p => p.nombreTipoContrato, new { @class = "form-control mb-2" })
-                @Html.ValidationMessage("nombreTipoContrato", new { @class = "text-danger" })
+                @Html.DropDownList("iidtipoContrato", listaTipoContrato, null, new { @class = "form-control mb-2" })
+                @Html.ValidationMessage("iidtipoContrato", new { @class = "text-danger" })
             </div>
 
         </div>
@@ -61,16 +61,45 @@
 
             <div>
                 @Html.LabelFor(p => p.nombreTipoUsuario)
-                @Html.TextBoxFor(p => p.nombreTipoUsuario, new { @class = "form-control" }) @* Esta linea crea un input tipo texto con la clase form-control mb-2*@
-                @Html.ValidationMessage("nombreTipoUsuario", new { @class = "text-danger" })
+                @Html.DropDownList("iidtipoUsuario", listaTipoUsuario, null, new { @class = "form-control mb-2" }) @* Esta linea crea un input tipo texto con la clase form-control mb-2*@
+                @Html.ValidationMessage("iidtipoUsuario", new { @class = "text-danger" })
             </div>
 
         </div>
 
     </div>
-    
-    <div class="d-flex justify-content-end mt-2">
-        <input type="submit" class="btn btn-primary w-25" value="Guardar" />
+
+    <div class="col-12 d-flex justify-content-between mt-3">
+        @Html.ActionLink("Atrás", "Index", "Empleado", null, new { @class = "btn btn-info w-25", @style = "color:white;" })
+        <button type="button" class="btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#confirmationEditEmploye">Guardar</button>
     </div>
 
 }
+
+<!-- Modal Confirmation  -->
+<div class="modal fade" id="confirmationEditEmploye" tabindex="-1" role="dialog" aria-labelledby="confirmationEditEmployeTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationEditEmployeTitle">¿Desea guardar los cambios?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success w-25" onclick="EditEmploye()">Aceptar</button>
+                <button type="button" class="btn btn-danger w-25" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function EditEmploye() {
+
+        const frmEditEmploye = document.getElementById("frmEditEmploye");
+
+        frmEditEmploye.submit();
+
+    }
+
+</script>
