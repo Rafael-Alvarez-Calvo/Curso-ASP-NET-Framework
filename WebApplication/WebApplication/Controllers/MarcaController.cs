@@ -34,6 +34,7 @@ namespace WebApplication.Controllers
             return View(listaMarca);
         }
 
+        [HttpGet]
         public ActionResult Agregar()
         {
             return View();
@@ -42,9 +43,17 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Agregar(MarcaCLS oMarcaCLS)
         {
-            if(!ModelState.IsValid)
+            int registrosEncontrados = 0;
+            string nombreMarca = oMarcaCLS.nombre;
+            using( var bd = new BDPasajeEntities())
             {
-                return View(oMarcaCLS);
+                registrosEncontrados = bd.Marca.Where(p => p.NOMBRE.Equals(nombreMarca)).Count();
+            }
+
+            if(!ModelState.IsValid || registrosEncontrados >= 1 )
+            {
+                if (registrosEncontrados >= 1) oMarcaCLS.mensajeError = "El nombre de la marca ya existe";
+                    return View(oMarcaCLS);
             }
             else
             {
@@ -83,13 +92,23 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Editar(MarcaCLS oMarcaCLS)
         {
-            if(!ModelState.IsValid)
+
+            int registrosEncontrados = 0;
+            string nombreMarca = oMarcaCLS.nombre;
+            int idMarca = oMarcaCLS.iidmarca;
+
+            using (var bd = new BDPasajeEntities())
             {
+                registrosEncontrados = bd.Marca.Where(p => p.NOMBRE.Equals(nombreMarca) && !p.IIDMARCA.Equals(idMarca)).Count();
+            }
+
+            if (!ModelState.IsValid || registrosEncontrados >=1)
+            {
+                if(registrosEncontrados >= 1) oMarcaCLS.mensajeError = "El nombre de la marca ya existe";
                 return View(oMarcaCLS);
             }
             else
             {
-                int idMarca = oMarcaCLS.iidmarca;
 
                 using (var bd = new BDPasajeEntities())
                 {
@@ -106,9 +125,17 @@ namespace WebApplication.Controllers
         }
         
         
-        /*public ActionResult Borrar(int id)
+        public ActionResult Borrar(int id)
         {
-            return View();
-        }*/
+           using( var bd = new BDPasajeEntities())
+           {
+                Marca oMarca = bd.Marca.Where(p => p.IIDMARCA.Equals(id)).First();
+
+                oMarca.BHABILITADO = 0;
+                bd.SaveChanges();
+           }
+
+            return RedirectToAction("Index");
+        }
     }
 }

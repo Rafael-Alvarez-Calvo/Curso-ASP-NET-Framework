@@ -15,6 +15,10 @@
                 @Html.LabelFor(p => p.nombre)
                 @Html.TextBoxFor(p => p.nombre, new { @class = "form-control" }) @* Esta linea crea un input tipo texto con la clase form-control*@
                 @Html.ValidationMessage("nombre", new { @class = "text-danger" })
+                @if (Model != null && Model.mensajeError != null)
+                {
+                    @Html.Label("", Model.mensajeError, new { @class= "text-danger"})
+                }
             </div>
             <div>
                 @Html.LabelFor(p => p.descripcion)

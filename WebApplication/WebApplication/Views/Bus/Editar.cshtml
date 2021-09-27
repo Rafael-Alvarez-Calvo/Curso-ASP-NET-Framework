@@ -12,7 +12,7 @@
 
 <h2>Editar Buses</h2>
 
-@using (Html.BeginForm("Editar", "Bus", FormMethod.Post))
+@using (Html.BeginForm("Editar", "Bus", FormMethod.Post, new { @id = "frmEditBus" }))
 {
     @Html.AntiForgeryToken()
 
@@ -22,7 +22,7 @@
 
             <div>
                 @Html.LabelFor(model => model.iidbus)
-                @Html.EditorFor(model => model.iidbus, new { htmlAttributes = new { @class = "form-control mb-2", @disabled = true } })
+                @Html.EditorFor(model => model.iidbus, new { htmlAttributes = new { @class = "form-control mb-2", @readonly = true } })
                 @Html.ValidationMessageFor(model => model.iidbus, "", new { @class = "text-danger" })
             </div>
 
@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            
+
 
             <div>
                 @Html.LabelFor(model => model.observacion)
@@ -93,11 +93,41 @@
                 @Html.ValidationMessageFor(model => model.observacion, "", new { @class = "text-danger" })
             </div>
 
-            <div class="d-flex justify-content-end mt-3">
-                <input type="submit" value="Guardar" class="btn btn-success w-25" />
-            </div>
+        </div>
+        
+        <div class="col-12 d-flex justify-content-between mt-3">
+            @Html.ActionLink("Atrás", "Index", "Bus", null, new { @class = "btn btn-info w-25", @style = "color:white;" })
+            <button type="button" class="btn btn-success w-25" data-bs-toggle="modal" data-bs-target="#confirmationEditBus">Guardar</button>
         </div>
 
     </div>
 }
+
+<!-- Modal Confirmation  -->
+<div class="modal fade" id="confirmationEditBus" tabindex="-1" role="dialog" aria-labelledby="confirmationEditBusTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationEditBusTitle">¿Desea guardar los cambios?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success w-25" onclick="EditBus()">Aceptar</button>
+                <button type="button" class="btn btn-danger w-25" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function EditBus() {
+
+        const frmEditBus = document.getElementById("frmEditBus");
+
+        frmEditBus.submit();
+
+    }
+
+</script>
 

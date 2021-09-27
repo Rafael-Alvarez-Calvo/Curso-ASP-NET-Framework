@@ -13,14 +13,19 @@
         {
             <div>
                 @Html.LabelFor(p => p.iidmarca)
-                @Html.TextBoxFor(p => p.iidmarca, new { @class = "form-control mb-2" , @readonly = true}) @* Esta linea crea un input tipo texto con la clase form-control*@
+                @Html.TextBoxFor(p => p.iidmarca, new { @class = "form-control mb-2", @readonly = true }) @* Esta linea crea un input tipo texto con la clase form-control*@
                 @Html.ValidationMessage("iidmarca", new { @class = "text-danger" })
+            
             </div>
             
             <div>
                 @Html.LabelFor(p => p.nombre)
                 @Html.TextBoxFor(p => p.nombre, new { @class = "form-control mb-2" }) @* Esta linea crea un input tipo texto con la clase form-control*@
                 @Html.ValidationMessage("nombre", new { @class = "text-danger" })
+                @if (Model.mensajeError != null && Model != null)
+                {
+                    @Html.Label("", Model.mensajeError, new { @class = "text-danger" })
+                }
             </div>
             <div>
                 @Html.LabelFor(p => p.descripcion)

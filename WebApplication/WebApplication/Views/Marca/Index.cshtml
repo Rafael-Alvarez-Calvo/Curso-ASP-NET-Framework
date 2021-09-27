@@ -30,7 +30,7 @@
                     <td>
                         <div class="d-flex justify-content-around">
                             @Html.ActionLink(" ", "Editar", "Marca", new { id = @item.iidmarca }, new { @id = item.iidmarca, @class = "fas fa-edit btn btn-warning" })
-                            @Html.ActionLink(" ", "Borrar", "Marca", new { id = @item.iidmarca }, new { @id= item.iidmarca , @class = "fas fa-trash-alt btn btn-danger" })
+                            @Html.ActionLink(" ", "Borrar", "Marca", new { id = @item.iidmarca }, new { @id = item.iidmarca, @class = "fas fa-trash-alt btn btn-danger", @onclick = "OpenModalDeleteBrand()" })
                         </div>
                     </td>
                 </tr>
@@ -44,3 +44,37 @@
 <div class="col-12 d-flex justify-content-end">
     @Html.ActionLink("Agregar", "Agregar", "Marca", null, new { @class = "btn btn-primary mb-3" })
 </div>
+
+
+<div class="modal fade" id="confirmationDeleteBrand" tabindex="-1" role="dialog" aria-labelledby="confirmationDeleteBrandTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationDeleteBrandTitle">¿Desea borrar esta marca?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success w-25" onclick="BorrarMarca()">Aceptar</button>
+                <button type="button" class="btn btn-danger w-25" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+    function OpenModalDeleteBrand() {
+
+        $("#confirmationDeleteBrand").modal("show");
+    }
+
+    function BorrarMarca() {
+
+        const frmEditBus = document.getElementById("frmEditBus");
+
+        frmEditBus.submit();
+
+    }
+
+</script>

@@ -22,5 +22,8 @@ namespace WebApplication.Models
         public string descripcion { get; set; }
 
         public int bhabilitado { get; set; }
+
+       
+        public string mensajeError { get; set; }
     }
 }
