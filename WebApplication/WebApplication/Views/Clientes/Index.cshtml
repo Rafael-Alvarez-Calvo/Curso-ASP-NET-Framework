@@ -25,31 +25,32 @@
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>@item.iidcliente</td>
-                <td>@item.nombre.ToLower() @item.appaterno.ToLower() @item.apmaterno.ToLower()</td>
-                <td>@item.direccion.ToLower()</td>
-                <td>@item.email.ToLower()</td>
+                <tr>
+                    <td>@item.iidcliente</td>
+                    <td>@item.nombre.ToLower() @item.appaterno.ToLower() @item.apmaterno.ToLower()</td>
+                    <td>@item.direccion.ToLower()</td>
+                    <td>@item.email.ToLower()</td>
 
-                @if (item.iidsexo == 1)
-                {
-                    <td>Hombre</td>
+                    @if (item.iidsexo == 1)
+                    {
+                        <td>Hombre</td>
 
-                }
-                else
-                {
-                    <td>Mujer</td>
-                }
+                    }
+                    else
+                    {
+                        <td>Mujer</td>
+                    }
 
-                <td>@item.telefonofijo</td>
-                <td>@item.telefonocelular</td>
-                <td>
-                    <div class="d-flex justify-content-around">
-                        @Html.ActionLink(" ", "Editar", "Clientes", new { id = @item.iidcliente }, new { @id = item.iidcliente, @class = "fas fa-edit btn btn-warning" })
-                        @Html.ActionLink(" ", "Borrar", "Clientes", new { id = @item.iidcliente }, new { @id = item.iidcliente, @class = "fas fa-trash-alt btn btn-danger" })
-                    </div>
-                </td>
-            </tr>
+                    <td>@item.telefonofijo</td>
+                    <td>@item.telefonocelular</td>
+                    <td>
+                        <div class="d-flex justify-content-around">
+                            @Html.ActionLink(" ", "Editar", "Clientes", new { id = @item.iidcliente }, new { @id = item.iidcliente, @class = "fas fa-edit btn btn-warning" })
+                            @*@Html.ActionLink(" ", "Borrar", "Clientes", new { id = @item.iidcliente }, new { @id = item.iidcliente, @class = "fas fa-trash-alt btn btn-danger" })*@
+                            <button type="button" class="btn btn-danger fas fa-trash-alt" data-bs-toggle="modal" data-bs-target="#DeleteClient" onclick="mostrarModalDelete(@item.iidcliente)"></button>
+                        </div>
+                    </td>
+                </tr>
 
             }
         </tbody>
@@ -59,4 +60,39 @@
 <div class="col-12 d-flex justify-content-end">
     @Html.ActionLink("Agregar", "Agregar", "Clientes", null, new { @class = "btn btn-primary mb-3" })
 </div>
+
+@using(Html.BeginForm("Borrar", "Cliente", FormMethod.Post, new { @id = "frmDeleteClient"}))
+{
+    @Html.TextBox("iidcliente");
+}
+
+<!-- Modal Confirmation  -->
+<div class="modal fade" id="DeleteClient" tabindex="-1" role="dialog" aria-labelledby="DeleteClientTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeleteClientTitle">¿Desea eliminar este cliente?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success w-25" onclick="DeleteClient()">Aceptar</button>
+                <button type="button" class="btn btn-danger w-25" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function mostrarModalDelete(iidcliente) {
+        document.getElementById("iidcliente").value = iidcliente
+    }
+
+    function DeleteClient() {
+
+        var frmDeleteClient = document.getElementById("frmDeleteClient");
+        frmDeleteClient.submit();
+    }
+
+</script>
 

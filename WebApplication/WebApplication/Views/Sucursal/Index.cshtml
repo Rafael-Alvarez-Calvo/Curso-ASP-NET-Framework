@@ -32,7 +32,7 @@
                 <td>
                     <div class="d-flex justify-content-around">
                         @Html.ActionLink(" ", "Editar", "Sucursal", new { id = @item.iidsucursal }, new { @id = item.iidsucursal, @class = "fas fa-edit btn btn-warning" })
-                        @Html.ActionLink(" ", "Borrar", "Sucursal", new { id = @item.iidsucursal }, new { @id = item.iidsucursal, @class = "fas fa-trash-alt btn btn-danger" })
+                        @Html.ActionLink(" ", "Borrar", "Sucursal", new { id = @item.iidsucursal }, new { @id = item.iidsucursal, @class = "fas fa-trash-alt btn btn-danger", @onclick = "DeleteSucursal()" })
                     </div>
                 </td>
             </tr>
@@ -45,4 +45,13 @@
 <div class="col-12 d-flex justify-content-end">
     @Html.ActionLink("Agregar", "Agregar", "Sucursal", null, new { @class = "btn btn-primary mb-3" })
 </div>
+
+<script>
+
+    function DeleteSucursal() {
+
+        confirm("¿Deseas eliminar esta sucursal del registro?") == 1 ? alert("Se elimino correctamente!") : event.preventDefault();
+    }
+
+</script>
 

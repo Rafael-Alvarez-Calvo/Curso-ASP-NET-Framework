@@ -39,5 +39,7 @@ namespace WebApplication.Models
         [Display(Name = "Fecha Apertura")]
         public DateTime fechaApertura { get; set; } //DateTime establece que el dato es de tipo fecha
         public int bhabilitado { get; set; }
+        
+        public string mensajeError { get; set; }
     }
 }

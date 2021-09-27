@@ -161,5 +161,18 @@ namespace WebApplication.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpDelete]
+        public ActionResult Borrar(int id)
+        {
+            using( var bd = new BDPasajeEntities())
+            {
+                Cliente oCliente = bd.Cliente.Where(res => res.IIDCLIENTE.Equals(id)).First();
+                oCliente.BHABILITADO = 0;
+                bd.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

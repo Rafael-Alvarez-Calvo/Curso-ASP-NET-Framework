@@ -14,8 +14,12 @@
         {
             <div class="mb-2">
                 @Html.LabelFor(p => p.nombre)
-                @Html.TextBoxFor(p => p.nombre, new { @class = "form-control" }) 
+                @Html.TextBoxFor(p => p.nombre, new { @class = "form-control" })
                 @Html.ValidationMessage("nombre", new { @class = "text-danger" })
+                @if (Model != null && Model.mensajeError != null)
+                {
+                    @Html.Label("", Model.mensajeError, new { @class = "text-danger" })
+                }
             </div>
 
             <div class="mb-2">
@@ -57,7 +61,7 @@
     frmAgregarSucursal.addEventListener("submit", e => {
 
         e.preventDefault();
-        confirm(`¿Desea editar la sucursal?`) == 1 && frmAgregarSucursal.submit();
+        confirm(`¿Desea añadir nueva sucursal?`) == 1 && frmAgregarSucursal.submit();
 
     });
 

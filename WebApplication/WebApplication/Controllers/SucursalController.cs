@@ -43,8 +43,18 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Agregar( SucursalCLS oSucursalCLS)
         {
-            if(!ModelState.IsValid)
+
+            int registrosEncontrados = 0;
+            string nombreSucursal = oSucursalCLS.nombre;
+
+            using( var bd = new BDPasajeEntities())
             {
+                registrosEncontrados = bd.Sucursal.Where(res => res.NOMBRE.Equals(nombreSucursal)).Count();
+            }
+
+            if(!ModelState.IsValid || registrosEncontrados >= 1)
+            {
+                if (registrosEncontrados >= 1) oSucursalCLS.mensajeError = "El nombre de sucursal ya existe";
                 return View(oSucursalCLS); //Esto permite que si el usuario no introduce bien algun valor se mantengan los datos y no se borren los inputs
             }
             else
@@ -91,13 +101,22 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Editar(SucursalCLS oSucursalCLS)
         {
-            if(!ModelState.IsValid)
+            int registrosEncontrados = 0;
+            string nombreSucursal = oSucursalCLS.nombre;
+            int idSucursal = oSucursalCLS.iidsucursal;
+
+            using (var bd = new BDPasajeEntities())
             {
+                registrosEncontrados = bd.Sucursal.Where(res => res.NOMBRE.Equals(nombreSucursal) && !res.IIDSUCURSAL.Equals(idSucursal)).Count();
+            }
+
+            if (!ModelState.IsValid || registrosEncontrados >= 1)
+            {
+                if (registrosEncontrados >= 1) oSucursalCLS.mensajeError = "El nombre de sucursal ya existe";
                 return View(oSucursalCLS);
             }
             else
             {
-                int idSucursal = oSucursalCLS.iidsucursal;
 
                 using( var bd = new BDPasajeEntities())
                 {
@@ -111,6 +130,20 @@ namespace WebApplication.Controllers
 
                     bd.SaveChanges();
                 }
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Borrar(int id)
+        {
+            using (var bd = new BDPasajeEntities())
+            {
+                Sucursal oSucursal = bd.Sucursal.Where(res => res.IIDSUCURSAL.Equals(id)).First();
+
+                oSucursal.BHABILITADO = 0;
+                bd.SaveChanges();
+
             }
 
             return RedirectToAction("Index");
