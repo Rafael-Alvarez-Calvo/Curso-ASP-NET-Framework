@@ -61,9 +61,9 @@
     @Html.ActionLink("Agregar", "Agregar", "Clientes", null, new { @class = "btn btn-primary mb-3" })
 </div>
 
-@using(Html.BeginForm("Borrar", "Cliente", FormMethod.Post, new { @id = "frmDeleteClient"}))
+@using(Html.BeginForm("Borrar", "Clientes", FormMethod.Post, new { @id = "frmDeleteClient"}))
 {
-    @Html.TextBox("iidcliente");
+    @Html.Hidden("iidcliente");
 }
 
 <!-- Modal Confirmation  -->
@@ -85,7 +85,7 @@
 <script>
 
     function mostrarModalDelete(iidcliente) {
-        document.getElementById("iidcliente").value = iidcliente
+        document.getElementById("iidcliente").value = iidcliente;
     }
 
     function DeleteClient() {

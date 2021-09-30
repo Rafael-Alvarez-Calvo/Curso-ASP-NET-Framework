@@ -47,7 +47,8 @@ namespace WebApplication.Controllers
             string nombreMarca = oMarcaCLS.nombre;
             using( var bd = new BDPasajeEntities())
             {
-                registrosEncontrados = bd.Marca.Where(p => p.NOMBRE.Equals(nombreMarca)).Count();
+                //registrosEncontrados = bd.Marca.Where(p => p.NOMBRE.Equals(nombreMarca)).Count();
+                registrosEncontrados = bd.Marca.Count(p => p.NOMBRE.Equals(nombreMarca));
             }
 
             if(!ModelState.IsValid || registrosEncontrados >= 1 )
@@ -78,7 +79,8 @@ namespace WebApplication.Controllers
 
             using( var bd = new BDPasajeEntities())
             {
-                Marca oMarca = bd.Marca.Where(p => p.IIDMARCA.Equals(id)).First();
+                //Marca oMarca = bd.Marca.Where(p => p.IIDMARCA.Equals(id)).First();
+                Marca oMarca = bd.Marca.FirstOrDefault(p => p.IIDMARCA.Equals(id));
                 //Donde el id de marca que recibo sea igual al id de mi tabla en base de datos, lo meto en una clase, esto devuelve una lista por eso se le pone First() para que devuelva un objeto
 
                 oMarcaCLS.iidmarca = oMarca.IIDMARCA;

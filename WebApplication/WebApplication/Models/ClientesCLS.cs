@@ -53,5 +53,6 @@ namespace WebApplication.Models
         [Display(Name = "Teléfono Móvil")]
         public string telefonocelular { get; set; }
         public int bhabilitado { get; set; }
+        public string mensajeError { get; set; }
     }
 }

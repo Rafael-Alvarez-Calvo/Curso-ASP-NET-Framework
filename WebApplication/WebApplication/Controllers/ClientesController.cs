@@ -64,10 +64,20 @@ namespace WebApplication.Controllers
         public ActionResult Agregar(ClientesCLS oClientesCLS)
         {
 
-            if(!ModelState.IsValid)
+            int registrosEncontrados = 0;
+            string nombreCliente = oClientesCLS.nombre;
+            string apPaternoCliente = oClientesCLS.appaterno;
+            string apMaternoCliente = oClientesCLS.apmaterno;
+
+            using (var bd = new BDPasajeEntities())
+            {
+                registrosEncontrados = bd.Cliente.Where(res => res.NOMBRE.Equals(nombreCliente) && res.APPATERNO.Equals(apPaternoCliente) && res.APMATERNO.Equals(apMaternoCliente)).Count();
+            }
+
+            if (!ModelState.IsValid || registrosEncontrados >= 1)
             {
                 setSexSelector();  //Necesitamos volver a llenar el selector cuando se valide algun campo y salga erroneo
-
+                if (registrosEncontrados >= 1) oClientesCLS.mensajeError = "El nombre de cliente ya existe";
                 return View(oClientesCLS);
             }
             else
@@ -128,14 +138,25 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Editar(ClientesCLS oClienteCLS)
         {
-            if(!ModelState.IsValid)
+            int registrosEncontrados = 0;
+            string nombreCliente = oClienteCLS.nombre;
+            string apPaternoCliente = oClienteCLS.appaterno;
+            string apMaternoCliente = oClienteCLS.apmaterno;
+            int idCliente = oClienteCLS.iidcliente;
+
+            using (var bd = new BDPasajeEntities())
             {
+                registrosEncontrados = bd.Cliente.Where(res => res.NOMBRE.Equals(nombreCliente) && res.APPATERNO.Equals(apPaternoCliente) && res.APMATERNO.Equals(apMaternoCliente) && !res.IIDCLIENTE.Equals(idCliente)).Count();
+            }
+
+            if (!ModelState.IsValid || registrosEncontrados >= 1)
+            {
+                if(registrosEncontrados >= 1) oClienteCLS.mensajeError = "El nombre de cliente ya existe";
                 setSexSelector();
                 return View(oClienteCLS);
             }
             else
             {
-                int idCliente = oClienteCLS.iidcliente;
 
                 using( var bd = new BDPasajeEntities())
                 {
@@ -162,17 +183,18 @@ namespace WebApplication.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpDelete]
-        public ActionResult Borrar(int id)
+        [HttpPost]
+        public ActionResult Borrar(int iidcliente)
         {
             using( var bd = new BDPasajeEntities())
             {
-                Cliente oCliente = bd.Cliente.Where(res => res.IIDCLIENTE.Equals(id)).First();
+                Cliente oCliente = bd.Cliente.Where(res => res.IIDCLIENTE.Equals(iidcliente)).First();
                 oCliente.BHABILITADO = 0;
                 bd.SaveChanges();
+                
+                return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index");
         }
     }
 }
