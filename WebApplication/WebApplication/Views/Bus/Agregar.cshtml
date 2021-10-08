@@ -48,6 +48,10 @@
                 @Html.LabelFor(model => model.placa)
                 @Html.EditorFor(model => model.placa, new { htmlAttributes = new { @class = "form-control mb-2" } })
                 @Html.ValidationMessageFor(model => model.placa, "", new { @class = "text-danger" })
+                @if (Model != null && Model.mensajeErrorPlaca != null)
+                {
+                    @Html.Label("", Model.mensajeErrorPlaca, new { @class = "text-danger" })
+                }
             </div>
 
         </div>

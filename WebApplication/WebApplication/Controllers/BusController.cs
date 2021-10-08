@@ -27,9 +27,9 @@ namespace WebApplication.Controllers
                                         on bus.IIDMODELO equals modelo.IIDMODELO
                                             join marca in bd.Marca
                                             on bus.IIDMARCA equals marca.IIDMARCA
+                                                where bus.BHABILITADO == 1 
                                                 select new BusCLS
                                                 {
-
                                                     iidbus = bus.IIDBUS,
                                                     placa = bus.PLACA,
                                                     nombreModelo = modelo.NOMBRE,
@@ -144,9 +144,18 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Agregar(BusCLS oBusCLS)
         {
+            int registrosEncontrados = 0;
+            string placa = oBusCLS.placa;
 
-            if(!ModelState.IsValid)
+            using (var bd = new BDPasajeEntities())
             {
+                registrosEncontrados = bd.Bus.Count(res => res.PLACA.Equals(placa));
+            }
+
+            if (!ModelState.IsValid || registrosEncontrados > 0)
+            {
+                if (registrosEncontrados > 0) oBusCLS.mensajeErrorPlaca = $"El número de placa {placa} ya existe en el registro";
+                setSelectors();
                 return View(oBusCLS);
             }
             else
@@ -175,10 +184,11 @@ namespace WebApplication.Controllers
             return RedirectToAction("Index");
         }
 
-
+        [HttpGet]
         public ActionResult Editar(int id)
         {
             setSelectors();
+
             BusCLS oBusCLS = new BusCLS();
             using (var bd = new BDPasajeEntities())
             {
@@ -203,9 +213,17 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Editar(BusCLS oBusCLS)
         {
+            int registrosEncontrados = 0;
+            string placa = oBusCLS.placa;
 
-            if(!ModelState.IsValid)
+            using (var bd = new BDPasajeEntities())
             {
+                registrosEncontrados = bd.Bus.Count(res => res.PLACA.Equals(placa) && !res.IIDBUS.Equals(oBusCLS.iidbus));
+            }
+
+            if (!ModelState.IsValid || registrosEncontrados > 0)
+            {
+                if(registrosEncontrados > 0) oBusCLS.mensajeErrorPlaca = $"El número de placa {placa} ya existe en el registro";
                 setSelectors();
                 return View(oBusCLS);
             }
@@ -231,6 +249,19 @@ namespace WebApplication.Controllers
 
                     bd.SaveChanges();
                 }
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Borrar(int iidBus)
+        {
+            using( var bd = new BDPasajeEntities())
+            {
+                Bus oBus = bd.Bus.FirstOrDefault(res => res.IIDBUS.Equals(iidBus));
+                oBus.BHABILITADO = 0;
+                bd.SaveChanges();
             }
 
             return RedirectToAction("Index");

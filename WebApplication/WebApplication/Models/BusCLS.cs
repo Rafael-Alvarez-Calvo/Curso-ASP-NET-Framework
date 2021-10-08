@@ -71,5 +71,6 @@ namespace WebApplication.Models
 
         [Display(Name = "Modelo")]
         public string nombreModelo { get; set; }
+        public string mensajeErrorPlaca { get; set; }
     }
 }

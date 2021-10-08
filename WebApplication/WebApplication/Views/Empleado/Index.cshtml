@@ -24,26 +24,63 @@
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>@item.iidempleado</td>
-                <td>@item.nombre.ToLower() @item.appaterno.ToLower() @item.apmaterno.ToLower()</td>
-                @*<td>@item.sueldo.ToString() €</td>*@
-                <td>@item.fechacontrato</td>
-                <td>@item.nombreTipoContrato</td>
-                <td>@item.nombreTipoUsuario</td>
-                <td>
-                    <div class="d-flex justify-content-around">
-                        @Html.ActionLink(" ", "Editar", "Empleado", new { id = @item.iidempleado }, new { @id = item.iidempleado, @class = "fas fa-edit btn btn-warning" })
-                        @Html.ActionLink(" ", "Borrar", "Empleado", new { id = @item.iidempleado }, new { @id = item.iidempleado, @class = "fas fa-trash-alt btn btn-danger" })
-                    </div>
-                </td>
-            </tr>
+                <tr>
+                    <td>@item.iidempleado</td>
+                    <td>@item.nombre.ToLower() @item.appaterno.ToLower() @item.apmaterno.ToLower()</td>
+                    @*<td>@item.sueldo.ToString() €</td>*@
+                    <td>@item.fechacontrato</td>
+                    <td>@item.nombreTipoContrato</td>
+                    <td>@item.nombreTipoUsuario</td>
+                    <td>
+                        <div class="d-flex justify-content-around">
+                            @Html.ActionLink(" ", "Editar", "Empleado", new { id = @item.iidempleado }, new { @id = item.iidempleado, @class = "fas fa-edit btn btn-warning" })
+                            <button type="button" class="btn btn-danger fas fa-trash-alt" data-bs-toggle="modal" data-bs-target="#DeleteEmploy" onclick="mostrarModalDelete(@item.iidempleado)"></button>
+                        </div>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
 </div>
 
 <div class="col-12 d-flex justify-content-end">
-    @Html.ActionLink("Agregar", "Agregar", "Empleado", null, new { @class = "btn btn-primary mb-3" })
+    @Html.ActionLink("Agregar", "Agregar", "Empleado", null, new { @class = "btn btn-primary mb-3 w-25" })
 </div>
+
+@using (Html.BeginForm("Borrar", "Empleado", FormMethod.Post, new { @id = "frmDeleteEmploy" }))
+{
+    @Html.Hidden("iidempleado");
+}
+
+
+<!-- Modal Confirmation  -->
+<div class="modal fade" id="DeleteEmploy" tabindex="-1" role="dialog" aria-labelledby="DeleteEmployTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeleteEmployTitle">¿Desea guardar los cambios?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success w-25" onclick="DeleteEmploy()">Aceptar</button>
+                <button type="button" class="btn btn-danger w-25" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function mostrarModalDelete(iidempleado) {
+        document.getElementById("iidempleado").value = iidempleado;
+    }
+
+    function DeleteEmploy() {
+
+        const frmDeleteEmploy = document.getElementById("frmDeleteEmploy");
+
+        frmDeleteEmploy.submit();
+    }
+
+</script>
 

@@ -60,5 +60,8 @@ namespace WebApplication.Models
 
         [Display(Name = "Tipo de usuario")]
         public string nombreTipoUsuario { get; set; }
+        public string mensajeErrorNombre { get; set; }
+        public string mensajeErrorApPaterno { get; set; }
+        public string mensajeErrorApMaterno { get; set; }
     }
 }

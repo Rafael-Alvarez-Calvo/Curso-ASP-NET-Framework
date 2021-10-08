@@ -24,25 +24,62 @@
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>@item.iidbus</td>
-                <td>@item.nombreMarca</td>
-                <td>@item.nombreModelo</td>
-                <td>@item.placa</td>
-                <td>@item.nombreTipoBus</td>
-                <td>@item.nombreSucursal</td>
-                <td>
-                    <div class="d-flex justify-content-evenly">
-                        @Html.ActionLink(" ", "Editar", "Bus", new { id = @item.iidbus }, new { @id = item.iidbus, @class = "fas fa-edit btn btn-warning" })
-                        @Html.ActionLink(" ", "Borrar", "Bus", new { id = @item.iidbus }, new { @id = item.iidbus, @class = "fas fa-trash-alt btn btn-danger" })
-                    </div>
-                </td>
-            </tr>
+                <tr>
+                    <td>@item.iidbus</td>
+                    <td>@item.nombreMarca</td>
+                    <td>@item.nombreModelo</td>
+                    <td>@item.placa</td>
+                    <td>@item.nombreTipoBus</td>
+                    <td>@item.nombreSucursal</td>
+                    <td>
+                        <div class="d-flex justify-content-evenly">
+                            @Html.ActionLink(" ", "Editar", "Bus", new { id = @item.iidbus }, new { @id = item.iidbus, @class = "fas fa-edit btn btn-warning" })
+                            <button type="button" class="btn btn-danger fas fa-trash-alt" data-bs-toggle="modal" data-bs-target="#DeleteBus" onclick="mostrarModalDelete(@item.iidbus)"></button>
+                        </div>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
 </div>
 
-<div class="col-12 d-flex justify-content-end">
-    @Html.ActionLink("Agregar", "Agregar", "Bus", null, new { @class = "btn btn-primary mb-3" })
+<div class="col-6 d-flex justify-content-end">
+    @Html.ActionLink("Agregar", "Agregar", "Bus", null, new { @class = "btn btn-primary mb-3 w-25" })
 </div>
+
+@using (Html.BeginForm("Borrar", "Bus", FormMethod.Post, new { @id = "frmDeleteBus" }))
+{
+    @Html.Hidden("iidBus");
+}
+
+
+<!-- Modal Confirmation  -->
+<div class="modal fade" id="DeleteBus" tabindex="-1" role="dialog" aria-labelledby="DeleteBusTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeleteBusTitle">¿Desea borrar este bus?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success w-25" onclick="DeleteBus()">Aceptar</button>
+                <button type="button" class="btn btn-danger w-25" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function mostrarModalDelete(iidBus) {
+        document.getElementById("iidBus").value = iidBus;
+    }
+
+    function DeleteBus() {
+
+        const frmDeleteBus = document.getElementById("frmDeleteBus");
+
+        frmDeleteBus.submit();
+    }
+
+</script>

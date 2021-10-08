@@ -7,40 +7,53 @@
 
 <h2>Sucursal</h2>
 
-<div class="mt-3">
-    <table class="table table-hover">
-        <thead class="table-dark">
-            <tr>
-                <td>@Html.LabelFor(p => Model[0].iidsucursal)</td>
-                <td>@Html.LabelFor(p => Model[0].nombre)</td>
-                <td>@Html.LabelFor(p => Model[0].direccion)</td>
-                <td>@Html.LabelFor(p => Model[0].telefono)</td>
-                <td>@Html.LabelFor(p => Model[0].email)</td>
-                <td>Operaciones</td>
-            </tr>
 
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-            <tr>
-                <td>@item.iidsucursal</td>
-                <td>@item.nombre</td>
-                <td>@item.direccion</td>
-                <td>@item.telefono</td>
-                <td>@item.email</td>
-                <td>
-                    <div class="d-flex justify-content-around">
-                        @Html.ActionLink(" ", "Editar", "Sucursal", new { id = @item.iidsucursal }, new { @id = item.iidsucursal, @class = "fas fa-edit btn btn-warning" })
-                        @Html.ActionLink(" ", "Borrar", "Sucursal", new { id = @item.iidsucursal }, new { @id = item.iidsucursal, @class = "fas fa-trash-alt btn btn-danger", @onclick = "DeleteSucursal()" })
-                    </div>
-                </td>
-            </tr>
+@using (Html.BeginForm("Index", "Sucursal", FormMethod.Get))
+{
+    <label>BUSCAR SUCURSAL</label>
+    <div class="row">
+        <div class="col-9">
+            @Html.TextBox("nombre")
+        </div>
+        <div class="col-3">
+            <input type="submit" class="btn btn-success w-100" value="Buscar" />
+        </div>
+    </div>
+    <div class="mt-3">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <td>@Html.LabelFor(p => Model[0].iidsucursal)</td>
+                    <td>@Html.LabelFor(p => Model[0].nombre)</td>
+                    <td>@Html.LabelFor(p => Model[0].direccion)</td>
+                    <td>@Html.LabelFor(p => Model[0].telefono)</td>
+                    <td>@Html.LabelFor(p => Model[0].email)</td>
+                    <td>Operaciones</td>
+                </tr>
 
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.iidsucursal</td>
+                        <td>@item.nombre</td>
+                        <td>@item.direccion</td>
+                        <td>@item.telefono</td>
+                        <td>@item.email</td>
+                        <td>
+                            <div class="d-flex justify-content-around">
+                                @Html.ActionLink(" ", "Editar", "Sucursal", new { id = @item.iidsucursal }, new { @id = item.iidsucursal, @class = "fas fa-edit btn btn-warning" })
+                                @Html.ActionLink(" ", "Borrar", "Sucursal", new { id = @item.iidsucursal }, new { @id = item.iidsucursal, @class = "fas fa-trash-alt btn btn-danger", @onclick = "DeleteSucursal()" })
+                            </div>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+}
 
 <div class="col-12 d-flex justify-content-end">
     @Html.ActionLink("Agregar", "Agregar", "Sucursal", null, new { @class = "btn btn-primary mb-3" })

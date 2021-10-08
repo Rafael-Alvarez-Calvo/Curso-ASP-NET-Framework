@@ -18,13 +18,13 @@
                 @Html.LabelFor(p => p.nombre)
                 @Html.TextBoxFor(p => p.nombre, new { @class = "form-control" })
                 @Html.ValidationMessage("nombre", new { @class = "text-danger" })
+                @if (Model != null && Model.mensajeErrorNombre != null)
+                {
+                    @Html.Label("", Model.mensajeErrorNombre, new { @class = "text-danger" })
+                }
             </div>
 
-            <div class="mb-2">
-                @Html.LabelFor(p => p.appaterno)
-                @Html.TextBoxFor(p => p.appaterno, new { @class = "form-control" })
-                @Html.ValidationMessage("appaterno", new { @class = "text-danger" })
-            </div>
+
 
             <div class="mb-2">
                 @Html.LabelFor(p => p.fechacontrato)
@@ -33,14 +33,43 @@
             </div>
 
             <!--<div class="mb-2">
-                @*@@Html.LabelFor(p => p.sueldo)
-                @Html.TextBoxFor(p => p.sueldo, new { @class = "form-control" })
-                @Html.ValidationMessage("sueldo", new { @class = "text-danger" })*@
-            </div>-->
+                    @*@@Html.LabelFor(p => p.sueldo)
+                    @Html.TextBoxFor(p => p.sueldo, new { @class = "form-control" })
+                    @Html.ValidationMessage("sueldo", new { @class = "text-danger" })*@
+                </div>-->
+
+            <div class="mb-2">
+                @Html.LabelFor(p => p.iidtipoUsuario)
+                @Html.DropDownList("iidtipoUsuario", listaTipoUsuario, null, new { @class = "form-control" })
+                @Html.ValidationMessage("iidtipoUsuario", new { @class = "text-danger" })
+            </div>
 
         </div>
 
         <div class="col-6">
+
+            <div class="col-12 d-flex">
+
+                <div class="col-6 mb-2 pe-2">
+                    @Html.LabelFor(p => p.appaterno)
+                    @Html.TextBoxFor(p => p.appaterno, new { @class = "form-control" })
+                    @Html.ValidationMessage("appaterno", new { @class = "text-danger" })
+                    @if (Model != null && Model.mensajeErrorApPaterno != null)
+                    {
+                        @Html.Label("", Model.mensajeErrorApPaterno, new { @class = "text-danger" })
+                    }
+                </div>
+
+                <div class="col-6 mb-2 ps-2">
+                    @Html.LabelFor(p => p.apmaterno)
+                    @Html.TextBoxFor(p => p.apmaterno, new { @class = "form-control" })
+                    @Html.ValidationMessage("apmaterno", new { @class = "text-danger" })
+                    @if (Model != null && Model.mensajeErrorApMaterno != null)
+                    {
+                        @Html.Label("", Model.mensajeErrorApMaterno, new { @class = "text-danger" })
+                    }
+                </div>
+            </div>
 
             <div class="mb-2">
                 @Html.LabelFor(p => p.iidSexo)
@@ -48,24 +77,10 @@
                 @Html.ValidationMessage("iidSexo", new { @class = "text-danger" })
             </div>
 
-
-            <div class="mb-2">
-                @Html.LabelFor(p => p.apmaterno)
-                @Html.TextBoxFor(p => p.apmaterno, new { @class = "form-control" })
-                @Html.ValidationMessage("apmaterno", new { @class = "text-danger" })
-            </div>
-
             <div class="mb-2">
                 @Html.LabelFor(p => p.iidtipoContrato)
                 @Html.DropDownList("iidtipoContrato", listaTipoContrato, null, new { @class = "form-control" })
                 @Html.ValidationMessage("iidtipoContrato", new { @class = "text-danger" })
-            </div>
-
-
-            <div class="mb-2">
-                @Html.LabelFor(p => p.iidtipoUsuario)
-                @Html.DropDownList("iidtipoUsuario", listaTipoUsuario, null, new { @class = "form-control" })
-                @Html.ValidationMessage("iidtipoUsuario", new { @class = "text-danger" })
             </div>
         </div>
 

@@ -14,7 +14,9 @@
     <div class="col-6">
         <div>
             @Html.LabelFor(p => p.iidcliente)
-            @Html.TextBoxFor(p => p.iidcliente, new { @class = "form-control mb-2", @readonly = true }) @* Esta linea crea un input tipo texto con la clase form-control mb-2*@
+            @Html.TextBoxFor(p => p.iidcliente, new { @class = "form-control mb-2", @readonly = true }) 
+            @* Esta linea crea un input tipo texto con la clase form-control mb-2*@
+
             @Html.ValidationMessage("iidcliente", new { @class = "text-danger" })
         </div>
 

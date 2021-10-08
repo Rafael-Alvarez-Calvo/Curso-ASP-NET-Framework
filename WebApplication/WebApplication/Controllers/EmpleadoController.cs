@@ -21,6 +21,8 @@ namespace WebApplication.Controllers
                                     on empleados.IIDTIPOUSUARIO equals tipousuario.IIDTIPOUSUARIO
                                     join tipocontrato in bd.TipoContrato
                                     on empleados.IIDTIPOCONTRATO equals tipocontrato.IIDTIPOCONTRATO
+                                    where empleados.BHABILITADO == 1
+
                                     select new EmpleadoCLS
                                     {
                                         iidempleado = empleados.IIDEMPLEADO,
@@ -117,8 +119,34 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Agregar(EmpleadoCLS oEmpleadoCLS)
         {
-            if(!ModelState.IsValid)
+
+            int registroNombreEncontrado = 0;
+            int registroapPaternoEncontrado = 0;
+            int registroapMaternoEncontrado = 0;
+
+            string nombre = oEmpleadoCLS.nombre;
+            string apPaterno = oEmpleadoCLS.appaterno;
+            string apMaterno = oEmpleadoCLS.apmaterno;
+
+
+            using( var bd = new BDPasajeEntities())
             {
+                registroNombreEncontrado = bd.Empleado.Where(res => res.NOMBRE.Equals(nombre)).Count();
+
+                registroapPaternoEncontrado = bd.Empleado.Where(res => res.APPATERNO.Equals(apPaterno)).Count();
+
+                registroapMaternoEncontrado = bd.Empleado.Where(res => res.APMATERNO.Equals(apMaterno)).Count();
+            }
+
+            if(!ModelState.IsValid || (registroNombreEncontrado > 0 && registroapPaternoEncontrado > 0 && registroapMaternoEncontrado > 0))
+            {
+                if (registroNombreEncontrado > 0 && registroapPaternoEncontrado > 0 && registroapMaternoEncontrado > 0)
+                {
+                    oEmpleadoCLS.mensajeErrorNombre = $"El nombre {nombre} ya existe en el registro";
+                    oEmpleadoCLS.mensajeErrorApPaterno = $"El 1º apellido ya existe para el nombre {nombre}";
+                    oEmpleadoCLS.mensajeErrorApMaterno = $"El 2º apellido ya existe para el nombre {nombre}";
+                }
+
                 setSelectors();
                 return View(oEmpleadoCLS);
             }
@@ -204,6 +232,22 @@ namespace WebApplication.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Borrar(int iidempleado)
+        {
+            using( var bd = new BDPasajeEntities())
+            {
+                Empleado oEmpleado = bd.Empleado.Where(res => res.IIDEMPLEADO.Equals(iidempleado)).First();
+
+                oEmpleado.BHABILITADO = 0;
+
+                bd.SaveChanges();
+                
+                return RedirectToAction("Index");
+            }
+
         }
     }
 }

@@ -12,16 +12,20 @@ namespace WebApplication.Controllers
 
         //El controlador gestiona todas las conexiones con la base de datos
         // GET: Marca
-        public ActionResult Index()
+        public ActionResult Index(MarcaCLS oMarcaCLS)
         {
+
+            string nombreMarca = oMarcaCLS.nombre;
 
             List<MarcaCLS> listaMarca = null; //Crea una variable de listaMarca con el valor vacio, abajo rellena la lista con la query
                                               //Se crea aqui la variable porque si se crea dentro del using, View no reconoceria la variable
 
             using (var bd = new BDPasajeEntities()) //El using abre la conexión con la base de datos
             {
-                listaMarca = (from marca in bd.Marca  // => select * from Marca where marca.BHabilitado == 1
-                               where marca.BHABILITADO == 1
+                if (nombreMarca == null)
+                {
+                    listaMarca = (from marca in bd.Marca  // => select * from Marca where marca.BHabilitado == 1
+                                where marca.BHABILITADO == 1
                                 select new MarcaCLS
                                 {
                                     iidmarca = marca.IIDMARCA,
@@ -29,6 +33,20 @@ namespace WebApplication.Controllers
                                     descripcion = marca.DESCRIPCION
 
                                 }).ToList();
+                }
+                else
+                {
+                    listaMarca = (from marca in bd.Marca  // => select * from Marca where marca.BHabilitado == 1
+                                  where marca.BHABILITADO == 1
+                                  && marca.NOMBRE.Contains(nombreMarca)
+                                  select new MarcaCLS
+                                  {
+                                      iidmarca = marca.IIDMARCA,
+                                      nombre = marca.NOMBRE,
+                                      descripcion = marca.DESCRIPCION
+
+                                  }).ToList();
+                }
             }
 
             return View(listaMarca);
