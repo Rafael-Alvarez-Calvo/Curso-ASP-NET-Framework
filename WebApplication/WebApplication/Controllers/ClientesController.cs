@@ -10,29 +10,57 @@ namespace WebApplication.Controllers
     public class ClientesController : Controller
     {
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(ClientesCLS oClienteCLS)
         {
+            setSexSelector();
             List<ClientesCLS> listaClientes = null;
+
+            string nombreCliente = oClienteCLS.nombre;
+            int sexoCliente = oClienteCLS.iidsexo;
 
             using (var bd = new BDPasajeEntities())
             {
-                listaClientes = (from clientes in bd.Cliente
-                                 where clientes.BHABILITADO == 1
-                                 select new ClientesCLS
-                                 {
-                                     iidcliente = clientes.IIDCLIENTE,
-                                     nombre = clientes.NOMBRE,
-                                     appaterno = clientes.APPATERNO,
-                                     apmaterno = clientes.APMATERNO,
-                                     email = clientes.EMAIL,
-                                     direccion = clientes.DIRECCION,
-                                     iidsexo = (int)clientes.IIDSEXO,
-                                     telefonofijo = clientes.TELEFONOFIJO,
-                                     telefonocelular = clientes.TELEFONOCELULAR,
+                if(nombreCliente == null || sexoCliente == 0)
+                {
+                    listaClientes = (from clientes in bd.Cliente
+                                     where clientes.BHABILITADO == 1
+                                     select new ClientesCLS
+                                     {
+                                         iidcliente = clientes.IIDCLIENTE,
+                                         nombre = clientes.NOMBRE,
+                                         appaterno = clientes.APPATERNO,
+                                         apmaterno = clientes.APMATERNO,
+                                         email = clientes.EMAIL,
+                                         direccion = clientes.DIRECCION,
+                                         iidsexo = (int)clientes.IIDSEXO,
+                                         telefonofijo = clientes.TELEFONOFIJO,
+                                         telefonocelular = clientes.TELEFONOCELULAR,
 
-                                 }).ToList();
+                                     }).ToList();
+                }
+                else
+                {
+                    listaClientes = (from clientes in bd.Cliente
+                                     where clientes.BHABILITADO == 1
+                                     && clientes.NOMBRE.Contains(nombreCliente) 
+                                     || clientes.IIDSEXO == sexoCliente 
+                                     select new ClientesCLS
+                                     {
+                                         iidcliente = clientes.IIDCLIENTE,
+                                         nombre = clientes.NOMBRE,
+                                         appaterno = clientes.APPATERNO,
+                                         apmaterno = clientes.APMATERNO,
+                                         email = clientes.EMAIL,
+                                         direccion = clientes.DIRECCION,
+                                         iidsexo = (int)clientes.IIDSEXO,
+                                         telefonofijo = clientes.TELEFONOFIJO,
+                                         telefonocelular = clientes.TELEFONOCELULAR,
+
+                                     }).ToList();
+                }
             }
-                return View(listaClientes);
+
+            return View(listaClientes);
         }
 
         List<SelectListItem> listaSexo;

@@ -3,65 +3,78 @@
 
 @{
     ViewBag.Title = "Index";
+    List<SelectListItem> listaSexo = (List<SelectListItem>)ViewBag.lista;
 }
 
 <h2>Clientes</h2>
 
-<div class="col-12 mt-3">
-    <table class="table table-hover clientsTable">
-        <thead class="table-dark">
-            <tr>
-                <td width="5%">@Html.LabelFor(p => Model[0].iidcliente)</td>
-                <td width="20%">@Html.LabelFor(p => Model[0].nombre)</td>
-                <td width="20%">@Html.LabelFor(p => Model[0].direccion)</td>
-                <td width="15%">@Html.LabelFor(p => Model[0].email)</td>
-                <td width="10%">@Html.LabelFor(p => Model[0].iidsexo)</td>
-                <td width="10%">@Html.LabelFor(p => Model[0].telefonofijo)</td>
-                <td width="10%">@Html.LabelFor(p => Model[0].telefonocelular)</td>
-                <td width="10%">Operaciones</td>
-            </tr>
+@using (Html.BeginForm("Index", "Clientes", FormMethod.Get, new { @id = "frmBusquedaClientes" }))
+{
+    <div class="row mt-3">
+        <div class="col-9">
+            @Html.TextBox("nombre", null, new { @class = "form-control w-100" })
+            @Html.DropDownList("iidsexo",listaSexo, new { @class = "form-control w-100" })
+        </div>
+        <div class="col-3">
+            <input type="submit" class="btn btn-success w-100" value="Buscar Clientes" />
+        </div>
+    </div>
 
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <div class="col-12 mt-3">
+        <table class="table table-hover clientsTable">
+            <thead class="table-dark">
                 <tr>
-                    <td>@item.iidcliente</td>
-                    <td>@item.nombre.ToLower() @item.appaterno.ToLower() @item.apmaterno.ToLower()</td>
-                    <td>@item.direccion.ToLower()</td>
-                    <td>@item.email.ToLower()</td>
-
-                    @if (item.iidsexo == 1)
-                    {
-                        <td>Hombre</td>
-
-                    }
-                    else
-                    {
-                        <td>Mujer</td>
-                    }
-
-                    <td>@item.telefonofijo</td>
-                    <td>@item.telefonocelular</td>
-                    <td>
-                        <div class="d-flex justify-content-around">
-                            @Html.ActionLink(" ", "Editar", "Clientes", new { id = @item.iidcliente }, new { @id = item.iidcliente, @class = "fas fa-edit btn btn-warning" })
-                            @*@Html.ActionLink(" ", "Borrar", "Clientes", new { id = @item.iidcliente }, new { @id = item.iidcliente, @class = "fas fa-trash-alt btn btn-danger" })*@
-                            <button type="button" class="btn btn-danger fas fa-trash-alt" data-bs-toggle="modal" data-bs-target="#DeleteClient" onclick="mostrarModalDelete(@item.iidcliente)"></button>
-                        </div>
-                    </td>
+                    <td width="5%">@Html.LabelFor(p => Model[0].iidcliente)</td>
+                    <td width="20%">@Html.LabelFor(p => Model[0].nombre)</td>
+                    <td width="20%">@Html.LabelFor(p => Model[0].direccion)</td>
+                    <td width="15%">@Html.LabelFor(p => Model[0].email)</td>
+                    <td width="10%">@Html.LabelFor(p => Model[0].iidsexo)</td>
+                    <td width="10%">@Html.LabelFor(p => Model[0].telefonofijo)</td>
+                    <td width="10%">@Html.LabelFor(p => Model[0].telefonocelular)</td>
+                    <td width="10%">Operaciones</td>
                 </tr>
 
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.iidcliente</td>
+                        <td>@item.nombre.ToLower() @item.appaterno.ToLower() @item.apmaterno.ToLower()</td>
+                        <td>@item.direccion.ToLower()</td>
+                        <td>@item.email.ToLower()</td>
 
+                        @if (item.iidsexo == 1)
+                        {
+                            <td>Hombre</td>
+
+                        }
+                        else
+                        {
+                            <td>Mujer</td>
+                        }
+
+                        <td>@item.telefonofijo</td>
+                        <td>@item.telefonocelular</td>
+                        <td>
+                            <div class="d-flex justify-content-around">
+                                @Html.ActionLink(" ", "Editar", "Clientes", new { id = @item.iidcliente }, new { @id = item.iidcliente, @class = "fas fa-edit btn btn-warning" })
+                                @*@Html.ActionLink(" ", "Borrar", "Clientes", new { id = @item.iidcliente }, new { @id = item.iidcliente, @class = "fas fa-trash-alt btn btn-danger" })*@
+                                <button type="button" class="btn btn-danger fas fa-trash-alt" data-bs-toggle="modal" data-bs-target="#DeleteClient" onclick="mostrarModalDelete(@item.iidcliente)"></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+}
 <div class="col-12 d-flex justify-content-end">
     @Html.ActionLink("Agregar", "Agregar", "Clientes", null, new { @class = "btn btn-primary mb-3" })
 </div>
 
-@using(Html.BeginForm("Borrar", "Clientes", FormMethod.Post, new { @id = "frmDeleteClient"}))
+@using (Html.BeginForm("Borrar", "Clientes", FormMethod.Post, new { @id = "frmDeleteClient" }))
 {
     @Html.Hidden("iidcliente");
 }
