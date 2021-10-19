@@ -11,10 +11,9 @@
 
 @using (Html.BeginForm("Index", "Marca", FormMethod.Post))
 {
-    <label>Buscar por marca</label>
-    <div class="row">
+    <div class="row my-4">
         <div class="col-9">
-            @Html.TextBox("nombre")
+            @Html.TextBox("nombre", null, new { @class = "form-control w-100 me-2", @placeholder = "Introduzca un nombre de marca" })
         </div>
         <div class="col-3">
             <input type="submit" class="btn btn-success w-100" value="Buscar"/>
@@ -55,7 +54,7 @@
 }
 
 <div class="col-12 d-flex justify-content-end">
-    @Html.ActionLink("Agregar", "Agregar", "Marca", null, new { @class = "btn btn-primary mb-3" })
+    @Html.ActionLink("Agregar", "Agregar", "Marca", null, new { @class = "btn btn-primary mb-3 w-25" })
 </div>
 
 

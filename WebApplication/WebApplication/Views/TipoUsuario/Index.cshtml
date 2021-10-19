@@ -1,0 +1,78 @@
+﻿@model List<WebApplication.Models.TipoUsuarioCLS>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("Index", "TipoUsuario", FormMethod.Post, new { @id = "frmBusquedaTipoUsuario" }))
+{
+    <table class="table table-hover mt-3 rounded">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => Model[0].iidtipousuario)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model[0].nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => Model[0].descripcion)
+                </th>
+
+                <th>Operaciones</th>
+            </tr>
+            <tr>
+                <td>@Html.TextBox("iidtipousuario", null, new { @class = "form-control", @placeholder = "Buscar por id", @onkeyup="searchIdUsuario()" })</td>
+                <td>@Html.TextBox("nombre", null, new { @class = "form-control", @placeholder = "Buscar por nombre", @onkeyup="searchNombreEmpleado()" })</td>
+                <td>@Html.TextBox("descripcion", null, new { @class = "form-control", @placeholder = "Buscar por descripción", @onkeyup="searchDescripcion()" })</td>
+                <td class="bg-dark"></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.iidtipousuario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.descripcion)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="col-12 d-flex justify-content-end">
+    @Html.ActionLink("Agregar", "Agregar", "TipoUsuario", null, new { @class = "btn btn-primary mb-3 w-25" })
+</div>
+
+<script>
+
+    let frmBusquedaTipoUsuario = document.getElementById("frmBusquedaTipoUsuario");
+
+    function searchIdUsuario() {
+        frmBusquedaTipoUsuario.submit();
+    }
+
+    function searchNombreEmpleado() {
+        frmBusquedaTipoUsuario.submit();
+    }
+
+    function searchDescripcion() {
+        frmBusquedaTipoUsuario.submit();
+    }
+
+</script>

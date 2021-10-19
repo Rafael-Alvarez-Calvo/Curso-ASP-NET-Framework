@@ -1,0 +1,90 @@
+﻿@using WebApplication.Models;
+@model List<RolCLS>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Roles</h2>
+
+@using(Ajax.BeginForm("SearchRole", "", new AjaxOptions {
+    HttpMethod = "POST",
+    UpdateTargetId = "divRol",
+    InsertionMode = InsertionMode.Replace
+}, new { @id = "frmFiltro" }))
+{
+    <div class="row my-3">
+        <div class="col-9 d-flex justify-content-center">
+            @Html.TextBox("nombre", null, new { @class = "form-control w-100", @placeholder = "Introduzca un rol", @onkeyup = "searchRole()" })
+        </div>
+        <div class="col-3">
+            <input type="submit" class="btn btn-success w-100" value="Buscar Rol" />
+        </div>
+    </div>
+    <div id="divRol">
+        @Html.Partial("_TablaRol", Model)
+    </div>
+}
+
+<div class="col-12 d-flex justify-content-end">
+    <button type="button" onclick="AddIdRole()" class="btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#AddRole">Agregar</button>
+</div>
+
+<div class="modal fade" id="AddRole" tabindex="-1" role="dialog" aria-labelledby="AddRoleTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title text-center w-100" id="AddRoleTitle" style="color:white;">¿Desea agregar un nuevo rol?</h5>
+            </div>
+
+            @using(Ajax.BeginForm("SaveRole", "Rol", null, new AjaxOptions {
+                HttpMethod = "POST",
+                UpdateTargetId = "divRol",
+                InsertionMode = InsertionMode.Replace,
+                OnSuccess="SaveRole"
+            }))
+            {
+                @Html.Hidden("titulo")
+                <div class="modal-body">
+                    @Html.Label("Id Rol:")
+                    @Html.TextBox("iidRol", null, new { @class = "form-control w-100 mb-2", @readOnly = true })
+
+                    @Html.Label("Nombre:")
+                    @Html.TextBox("nombre", null, new { @class = "form-control w-100 mb-2", @placeholder = "Introduzca un nombre" })
+                
+                    @Html.Label("Descripción:")
+                    @Html.TextBox("descripcion", null, new { @class = "form-control w-100 mb-2", @placeholder = "Introduzca una descripción" })
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success w-25" >Aceptar</button>
+                    <button id="closeAddModal" type="button" class="btn btn-danger w-25" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function searchRole() {
+        const frmFiltro = $("#frmFiltro");
+        frmFiltro.trigger("submit");
+    }
+
+    function AddIdRole() {
+        $("#titulo").val(1)
+    }
+
+    function SaveRole(elem) {
+        if (elem == 1) {
+            $("#frmFiltro").trigger("submit");
+            $("#closeAddModal").click();
+            alert("Se ha guardado correctamente")
+        }
+        else {
+            alert("Algo ha fallado!")
+        }
+    }
+
+</script>

@@ -18,19 +18,23 @@
                     @Html.ActionLink("Empleados", "Index", "Empleado", new { area = "" }, new { @class = "navbar-brand" })
                     @Html.ActionLink("Buses", "Index", "Bus", new { area = "" }, new { @class = "navbar-brand" })
                     @Html.ActionLink("Viajes", "Index", "Viaje", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Tipos", "Index", "TipoUsuario", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Rol", "Index", "Rol", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Pagina", "Index", "Pagina", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
             </div>
         </div>
 
         <div class="container body-content">
             @RenderBody()
-            
+
             <!--<footer>
-            @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
-            </footer>-->
+        @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
+        </footer>-->
         </div>
 
         <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>>
         <script src="~/Scripts/bootstrap.min.js"></script>
     </body>
 </html>

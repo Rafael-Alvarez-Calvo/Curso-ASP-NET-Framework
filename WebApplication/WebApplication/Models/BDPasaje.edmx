@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BDPasajeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BDPasajeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Asiento">
           <Key>
             <PropertyRef Name="IIDASIENTO" />
@@ -607,8 +607,7 @@
             <End Role="Viaje" EntitySet="Viaje" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BDPasajeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -689,7 +688,7 @@
           <Property Name="APPATERNO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="APMATERNO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="FECHACONTRATO" Type="DateTime" Precision="3" />
-          <Property Name="SUELDO" Type="Decimal" />
+          <Property Name="SUELDO" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="IIDTIPOUSUARIO" Type="Int32" />
           <Property Name="IIDTIPOCONTRATO" Type="Int32" />
           <Property Name="IIDSEXO" Type="Int32" />

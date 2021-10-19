@@ -12,15 +12,18 @@ namespace WebApplication.Controllers
         // GET: Bus
 
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(BusCLS oBusCLS)
         {
-            List<BusCLS> listaBuses = null;
+            setSelectors();
+
+            List<BusCLS> listaBuses = null; ;
+            List<BusCLS> listaFiltradaBuses = new List<BusCLS>();
 
             using( var bd = new BDPasajeEntities())
             {
                 listaBuses = (from bus in bd.Bus
-                                  join sucursal in bd.Sucursal
-                                  on bus.IIDSUCURSAL equals sucursal.IIDSUCURSAL
+                                    join sucursal in bd.Sucursal
+                                    on bus.IIDSUCURSAL equals sucursal.IIDSUCURSAL
                                     join tipoBus in bd.TipoBus
                                     on bus.IIDTIPOBUS equals tipoBus.IIDTIPOBUS
                                         join modelo in bd.Modelo
@@ -35,12 +38,58 @@ namespace WebApplication.Controllers
                                                     nombreModelo = modelo.NOMBRE,
                                                     nombreSucursal = sucursal.NOMBRE,
                                                     nombreTipoBus = tipoBus.NOMBRE,
-                                                    nombreMarca = marca.NOMBRE
+                                                    nombreMarca = marca.NOMBRE,
+                                                    iidModelo = modelo.IIDMODELO,
+                                                    iidSucursal = sucursal.IIDSUCURSAL,
+                                                    iidMarca = marca.IIDMARCA,
+                                                    iidTipoBus = tipoBus.IIDTIPOBUS,
 
                                                 }).ToList();
+
+
+                if(oBusCLS.iidbus == 0 && oBusCLS.iidMarca == 0 && oBusCLS.iidModelo == 0 && oBusCLS.iidSucursal == 0 && oBusCLS.iidTipoBus == 0 && oBusCLS.placa == null)
+                {
+                    listaFiltradaBuses = listaBuses;
+                }
+                else
+                {
+
+                    if(oBusCLS.iidbus != 0)
+                    {
+                        listaBuses = listaBuses.Where(res => res.iidbus.ToString().Contains(oBusCLS.iidbus.ToString())).ToList();
+                    }
+
+                    if(oBusCLS.placa != null)
+                    {
+                        listaBuses = listaBuses.Where(res => res.placa.Contains(oBusCLS.placa)).ToList();
+                    }
+
+                    if (oBusCLS.iidMarca != 0)
+                    {
+                        listaBuses = listaBuses.Where(res => res.iidMarca.ToString().Contains(oBusCLS.iidMarca.ToString())).ToList();
+                    }
+
+                    if (oBusCLS.iidModelo != 0)
+                    {
+                        listaBuses = listaBuses.Where(res => res.iidModelo.ToString().Contains(oBusCLS.iidModelo.ToString())).ToList();
+                    }
+
+                    if (oBusCLS.iidSucursal != 0)
+                    {
+                        listaBuses = listaBuses.Where(res => res.iidSucursal.ToString().Contains(oBusCLS.iidSucursal.ToString())).ToList();
+                    }
+
+                    if (oBusCLS.iidTipoBus != 0)
+                    {
+                        listaBuses = listaBuses.Where(res => res.iidTipoBus.ToString().Contains(oBusCLS.iidTipoBus.ToString())).ToList();
+                    }
+
+                    listaFiltradaBuses = listaBuses;
+                }
+
             }
 
-            return View(listaBuses);
+            return View(listaFiltradaBuses);
         }
 
 

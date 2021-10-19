@@ -3,45 +3,60 @@
 
 @{
     ViewBag.Title = "Index";
+    List<SelectListItem> listaUsuario = (List<SelectListItem>)ViewBag.listaTipoUsuario;
 }
 
 <h2>Empleados</h2>
 
-<div class="mt-3">
-    <table class="table table-hover">
-        <thead class="table-dark">
-            <tr>
-                <td>@Html.LabelFor(p => Model[0].iidempleado)</td>
-                <td>@Html.LabelFor(p => Model[0].nombre)</td>
-                @*<td>@Html.LabelFor(p => Model[0].sueldo)<span> (€)</span></td>*@
-                <td>@Html.LabelFor(p => Model[0].fechacontrato)</td>
-                <td>@Html.LabelFor(p => Model[0].nombreTipoContrato)</td>
-                <td>@Html.LabelFor(p => Model[0].nombreTipoUsuario)</td>
-                <td class="text-center">Operaciones</td>
-            </tr>
-        </thead>
+@using (Html.BeginForm("Index", "Empleado", FormMethod.Get, new { @id = "frmBusquedaEmpleados" }))
+{
+    <div class="row my-4">
+        <div class="col-9 d-flex justify-content-center">
+            @Html.TextBox("nombre", null, new { @class = "form-control w-100 me-2", @placeholder = "Introduzca un nombre de empleado", @onkeyup="searchEmploy()" })
+            @Html.DropDownList("iidtipoUsuario", listaUsuario, new { @class = "form-control w-100 ms-2", @onchange="searchUserType()"})
+        </div>
+        <div class="col-3">
+            <input type="submit" class="btn btn-success w-100" value="Buscar Clientes" />
+        </div>
+    </div>
 
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <div class="mt-3">
+        <table class="table table-hover">
+            <thead class="table-dark">
                 <tr>
-                    <td>@item.iidempleado</td>
-                    <td>@item.nombre.ToLower() @item.appaterno.ToLower() @item.apmaterno.ToLower()</td>
-                    @*<td>@item.sueldo.ToString() €</td>*@
-                    <td>@item.fechacontrato</td>
-                    <td>@item.nombreTipoContrato</td>
-                    <td>@item.nombreTipoUsuario</td>
-                    <td>
-                        <div class="d-flex justify-content-around">
-                            @Html.ActionLink(" ", "Editar", "Empleado", new { id = @item.iidempleado }, new { @id = item.iidempleado, @class = "fas fa-edit btn btn-warning" })
-                            <button type="button" class="btn btn-danger fas fa-trash-alt" data-bs-toggle="modal" data-bs-target="#DeleteEmploy" onclick="mostrarModalDelete(@item.iidempleado)"></button>
-                        </div>
-                    </td>
+                    <td>@Html.LabelFor(p => Model[0].iidempleado)</td>
+                    <td>@Html.LabelFor(p => Model[0].nombre)</td>
+                    @*<td>@Html.LabelFor(p => Model[0].sueldo)<span> (€)</span></td>*@
+                    <td>@Html.LabelFor(p => Model[0].fechacontrato)</td>
+                    <td>@Html.LabelFor(p => Model[0].nombreTipoContrato)</td>
+                    <td>@Html.LabelFor(p => Model[0].nombreTipoUsuario)</td>
+                    <td class="text-center">Operaciones</td>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.iidempleado</td>
+                        <td>@item.nombre.ToLower() @item.appaterno.ToLower() @item.apmaterno.ToLower()</td>
+                        @*<td>@item.sueldo.ToString() €</td>*@
+                        <td>@item.fechacontrato</td>
+                        <td>@item.nombreTipoContrato</td>
+                        <td>@item.nombreTipoUsuario</td>
+                        <td>
+                            <div class="d-flex justify-content-around">
+                                @Html.ActionLink(" ", "Editar", "Empleado", new { id = @item.iidempleado }, new { @id = item.iidempleado, @class = "fas fa-edit btn btn-warning" })
+                                <button type="button" class="btn btn-danger fas fa-trash-alt" data-bs-toggle="modal" data-bs-target="#DeleteEmploy" onclick="mostrarModalDelete(@item.iidempleado)"></button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
 
 <div class="col-12 d-flex justify-content-end">
     @Html.ActionLink("Agregar", "Agregar", "Empleado", null, new { @class = "btn btn-primary mb-3 w-25" })
@@ -80,6 +95,16 @@
         const frmDeleteEmploy = document.getElementById("frmDeleteEmploy");
 
         frmDeleteEmploy.submit();
+    }
+
+    function searchUserType() {
+
+        frmBusquedaEmpleados.submit();
+    }
+
+    function searchEmploy() {
+
+        frmBusquedaEmpleados.submit();
     }
 
 </script>

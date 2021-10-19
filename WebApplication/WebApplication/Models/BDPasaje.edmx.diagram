@@ -23,7 +23,7 @@
         <EntityTypeShape EntityType="BDPasajeModel.TipoContrato" Width="1.5" PointX="1.5" PointY="27.125" IsExpanded="true" />
         <EntityTypeShape EntityType="BDPasajeModel.TipoUsuario" Width="1.5" PointX="1.5" PointY="29.625" IsExpanded="true" />
         <EntityTypeShape EntityType="BDPasajeModel.TIPOUSUARIOREGISTRO" Width="1.5" PointX="1.5" PointY="23.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDPasajeModel.Usuario" Width="1.5" PointX="3.75" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDPasajeModel.Usuario" Width="1.5" PointX="3.75" PointY="27.875" IsExpanded="true" />
         <EntityTypeShape EntityType="BDPasajeModel.VENTA" Width="1.5" PointX="3" PointY="16.25" IsExpanded="true" />
         <EntityTypeShape EntityType="BDPasajeModel.Viaje" Width="1.5" PointX="8.25" PointY="3.875" IsExpanded="true" />
         <AssociationConnector Association="BDPasajeModel.FK__Asiento__IIDVIAJ__412EB0B6" ManuallyRouted="false" />
