@@ -11,7 +11,6 @@ namespace WebApplication.Controllers
     {
         // GET: Bus
 
-        [HttpGet]
         public ActionResult Index(BusCLS oBusCLS)
         {
             setSelectors();

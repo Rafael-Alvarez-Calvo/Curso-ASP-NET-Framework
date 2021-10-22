@@ -1,0 +1,37 @@
+﻿@model List<WebApplication.Models.PaginaCLS>
+
+
+<div class="mt-4">
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr>
+                <td width="10%">@Html.LabelFor(p => Model[0].iidpagina)</td>
+                <td width="20%">@Html.LabelFor(p => Model[0].mensaje)</td>
+                <td width="30%">@Html.LabelFor(p => Model[0].accion)</td>
+                <td width="30%">@Html.LabelFor(p => Model[0].controlador)</td>
+                <td class="text-center" width="10%">Operaciones</td>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.iidpagina</td>
+                    <td>@item.mensaje</td>
+                    <td>@item.accion</td>
+                    <td>@item.controlador</td>
+                    <td>
+                        <div class="d-flex justify-content-around">
+                            @Html.ActionLink(" ", "Editar", "Rol", new { id = @item.iidpagina }, new { @id = item.iidpagina, @class = "fas fa-edit btn btn-warning" })
+                            @Html.ActionLink(" ", "Borrar", "Rol", new { id = @item.iidpagina }, new { @id = item.iidpagina, @class = "fas fa-trash-alt btn btn-danger", @onclick = "DeleteSucursal()" })
+                        </div>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+

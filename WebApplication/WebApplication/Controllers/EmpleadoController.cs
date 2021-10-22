@@ -20,101 +20,26 @@ namespace WebApplication.Controllers
 
             using( var bd = new BDPasajeEntities())
             {
-                if(nombreEmpleado == null)
-                {
-                    if(tipoEmpleado == 0)
-                    {
-                        listaEmpleados = (from empleados in bd.Empleado
-                                            join tipousuario in bd.TipoUsuario
-                                            on empleados.IIDTIPOUSUARIO equals tipousuario.IIDTIPOUSUARIO
-                                            join tipocontrato in bd.TipoContrato
-                                            on empleados.IIDTIPOCONTRATO equals tipocontrato.IIDTIPOCONTRATO
-                                            where empleados.BHABILITADO == 1
+                listaEmpleados = (from empleados in bd.Empleado
+                                    join tipousuario in bd.TipoUsuario
+                                    on empleados.IIDTIPOUSUARIO equals tipousuario.IIDTIPOUSUARIO
+                                    join tipocontrato in bd.TipoContrato
+                                    on empleados.IIDTIPOCONTRATO equals tipocontrato.IIDTIPOCONTRATO
+                                    where empleados.BHABILITADO == 1
+                                    && (tipoEmpleado == 0 || empleados.IIDTIPOUSUARIO == tipoEmpleado)
+                                    && (nombreEmpleado == null || empleados.NOMBRE.Contains(nombreEmpleado))
+                                    select new EmpleadoCLS
+                                    {
+                                        iidempleado = empleados.IIDEMPLEADO,
+                                        nombre = empleados.NOMBRE,
+                                        appaterno = empleados.APPATERNO,
+                                        apmaterno = empleados.APMATERNO,
+                                        fechacontrato = (DateTime)empleados.FECHACONTRATO,
+                                        iidSexo = (int)empleados.IIDSEXO,
+                                        nombreTipoUsuario = tipousuario.NOMBRE,
+                                        nombreTipoContrato = tipocontrato.NOMBRE
 
-                                            select new EmpleadoCLS
-                                            {
-                                                iidempleado = empleados.IIDEMPLEADO,
-                                                nombre = empleados.NOMBRE,
-                                                appaterno = empleados.APPATERNO,
-                                                apmaterno = empleados.APMATERNO,
-                                                fechacontrato = (DateTime)empleados.FECHACONTRATO,
-                                                iidSexo = (int)empleados.IIDSEXO,
-                                                nombreTipoUsuario = tipousuario.NOMBRE,
-                                                nombreTipoContrato = tipocontrato.NOMBRE
-
-                                            }).ToList();
-                    }
-                    else
-                    {
-                        listaEmpleados = (from empleados in bd.Empleado
-                                          join tipousuario in bd.TipoUsuario
-                                          on empleados.IIDTIPOUSUARIO equals tipousuario.IIDTIPOUSUARIO
-                                          join tipocontrato in bd.TipoContrato
-                                          on empleados.IIDTIPOCONTRATO equals tipocontrato.IIDTIPOCONTRATO
-                                          where empleados.BHABILITADO == 1
-                                          && empleados.IIDTIPOUSUARIO == tipoEmpleado
-                                          select new EmpleadoCLS
-                                          {
-                                              iidempleado = empleados.IIDEMPLEADO,
-                                              nombre = empleados.NOMBRE,
-                                              appaterno = empleados.APPATERNO,
-                                              apmaterno = empleados.APMATERNO,
-                                              fechacontrato = (DateTime)empleados.FECHACONTRATO,
-                                              iidSexo = (int)empleados.IIDSEXO,
-                                              nombreTipoUsuario = tipousuario.NOMBRE,
-                                              nombreTipoContrato = tipocontrato.NOMBRE
-
-                                          }).ToList();
-                    }
-                }
-                else
-                {
-                    if(tipoEmpleado == 0)
-                    {
-                        listaEmpleados = (from empleados in bd.Empleado
-                                          join tipousuario in bd.TipoUsuario
-                                          on empleados.IIDTIPOUSUARIO equals tipousuario.IIDTIPOUSUARIO
-                                          join tipocontrato in bd.TipoContrato
-                                          on empleados.IIDTIPOCONTRATO equals tipocontrato.IIDTIPOCONTRATO
-                                          where empleados.BHABILITADO == 1
-                                          && empleados.NOMBRE.Contains(nombreEmpleado)
-                                          select new EmpleadoCLS
-                                          {
-                                              iidempleado = empleados.IIDEMPLEADO,
-                                              nombre = empleados.NOMBRE,
-                                              appaterno = empleados.APPATERNO,
-                                              apmaterno = empleados.APMATERNO,
-                                              fechacontrato = (DateTime)empleados.FECHACONTRATO,
-                                              iidSexo = (int)empleados.IIDSEXO,
-                                              nombreTipoUsuario = tipousuario.NOMBRE,
-                                              nombreTipoContrato = tipocontrato.NOMBRE
-
-                                          }).ToList();
-                    }
-                    else
-                    {
-                        listaEmpleados = (from empleados in bd.Empleado
-                                          join tipousuario in bd.TipoUsuario
-                                          on empleados.IIDTIPOUSUARIO equals tipousuario.IIDTIPOUSUARIO
-                                          join tipocontrato in bd.TipoContrato
-                                          on empleados.IIDTIPOCONTRATO equals tipocontrato.IIDTIPOCONTRATO
-                                          where empleados.BHABILITADO == 1
-                                          && empleados.NOMBRE.Contains(nombreEmpleado)
-                                          && empleados.IIDTIPOUSUARIO == tipoEmpleado
-                                          select new EmpleadoCLS
-                                          {
-                                              iidempleado = empleados.IIDEMPLEADO,
-                                              nombre = empleados.NOMBRE,
-                                              appaterno = empleados.APPATERNO,
-                                              apmaterno = empleados.APMATERNO,
-                                              fechacontrato = (DateTime)empleados.FECHACONTRATO,
-                                              iidSexo = (int)empleados.IIDSEXO,
-                                              nombreTipoUsuario = tipousuario.NOMBRE,
-                                              nombreTipoContrato = tipocontrato.NOMBRE
-
-                                          }).ToList();
-                    }
-                }
+                                    }).ToList();
             }
 
             return View(listaEmpleados);

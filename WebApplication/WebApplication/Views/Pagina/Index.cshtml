@@ -1,0 +1,97 @@
+﻿@model List<WebApplication.Models.PaginaCLS>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Páginas</h2>
+
+
+@using (Ajax.BeginForm("SearchMessage", "", new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "divPage",
+    InsertionMode = InsertionMode.Replace
+}, new { @id = "frmSearchMessage" }))
+    {
+        <div class="row my-3">
+            <div class="col-9 d-flex justify-content-center">
+                @Html.TextBox("mensaje", null, new { @class = "form-control w-100", @placeholder = "Introduzca un mensaje", @onkeyup = "searchMessage()" })
+            </div>
+            <div class="col-3">
+                <input type="submit" class="btn btn-success w-100" value="Buscar Mensaje" />
+            </div>
+        </div>
+        <div id="divPage">
+            @Html.Partial("_TablaPagina", Model)
+        </div>
+
+    }
+
+<div class="col-12 d-flex justify-content-end">
+    <button type="button" onclick="AddPage()" class="btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#AddPage">Agregar</button>
+</div>
+
+<div class="modal fade" id="AddPage" tabindex="-1" role="dialog" aria-labelledby="AddPageTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title text-center w-100" id="AddPageTitle" style="color:white;">¿Desea agregar una nueva pagina?</h5>
+            </div>
+
+            @using (Ajax.BeginForm("SavePage", "Pagina", null, new AjaxOptions
+            {
+                HttpMethod = "POST",
+                UpdateTargetId = "divPage",
+                InsertionMode = InsertionMode.Replace,
+                OnSuccess = "SavePage"
+            }))
+            {
+                @Html.Hidden("operacionPagina")
+                <div class="modal-body">
+                    @Html.Label("Id Página:")
+                    @Html.TextBox("iidpagina", null, new { @class = "form-control w-100 mb-2", @readOnly = true })
+
+                    @Html.Label("Mensaje:")
+                    @Html.TextBox("mensaje", null, new { @class = "form-control w-100 mb-2", @placeholder = "Introduzca un mensaje" })
+
+                    @Html.Label("Acción:")
+                    @Html.TextBox("accion", null, new { @class = "form-control w-100 mb-2", @placeholder = "Introduzca una accion" })
+                    
+                    @Html.Label("Controlador:")
+                    @Html.TextBox("controlador", null, new { @class = "form-control w-100 mb-2", @placeholder = "Introduzca un controlador" })
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success w-25">Aceptar</button>
+                    <button id="closeAddModal" type="button" class="btn btn-danger w-25" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function searchMessage() {
+
+        $("#frmSearchMessage").submit();
+    }
+
+    function AddPage() {
+        $("#operacionPagina").val(1);
+        //Aqui se estable un estado del hidden operacion, para el Add sería 1, Editar 2, borrar 3
+    }
+
+    function SavePage(result) {
+        if (result == 1) {
+            $("#frmSearchMessage").trigger("submit");
+            $("#closeAddModal").click();
+            alert("Se ha guardado la página correctamente")
+        }
+        else {
+            alert("Algo ha fallado!")
+        }
+    }
+
+</script>
+

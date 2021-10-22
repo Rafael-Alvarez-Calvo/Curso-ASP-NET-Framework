@@ -1,0 +1,38 @@
+﻿@using WebApplication.Models;
+@model List<RolPaginaCLS>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="mt-4">
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr>
+                <td width="10%">@Html.LabelFor(p => Model[0].iidRolPagina)</td>
+                <td width="20%">@Html.LabelFor(p => Model[0].nombreRol)</td>
+                <td width="30%">@Html.LabelFor(p => Model[0].nombreMensaje)</td>
+                <td class="text-center" width="10%">Operaciones</td>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.iidRolPagina</td>
+                    <td>@item.nombreRol</td>
+                    <td>@item.nombreMensaje</td>
+                    <td>
+                        <div class="d-flex justify-content-around">
+                            @Html.ActionLink(" ", "Editar", "RolPagina", new { id = @item.iidRolPagina }, new { @id = item.iidRolPagina, @class = "fas fa-edit btn btn-warning" })
+                            @Html.ActionLink(" ", "Borrar", "RolPagina", new { id = @item.iidRolPagina }, new { @id = item.iidRolPagina, @class = "fas fa-trash-alt btn btn-danger", @onclick = "DeleteSucursal()" })
+                        </div>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
